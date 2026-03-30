@@ -1,0 +1,38 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Left stem -->
+    <path
+        android:pathData="M17,28 L17,8"
+        android:strokeColor="#000000"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+
+    <!-- Right stem -->
+    <path
+        android:pathData="M35,24 L35,6"
+        android:strokeColor="#000000"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+
+    <!-- Beam -->
+    <path
+        android:pathData="M17,8 L35,6 L35,12 L17,14 Z"
+        android:fillColor="#000000" />
+
+    <!-- Left note head (circle r=6) -->
+    <path
+        android:pathData="M11,33 A6,6 0 1 0 23,33 A6,6 0 1 0 11,33 Z"
+        android:fillColor="#000000" />
+
+    <!-- Right note head (circle r=6) -->
+    <path
+        android:pathData="M29,29 A6,6 0 1 0 41,29 A6,6 0 1 0 29,29 Z"
+        android:fillColor="#000000" />
+
+</vector>

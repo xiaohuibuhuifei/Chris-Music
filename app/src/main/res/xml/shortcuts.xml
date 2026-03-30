@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="shuffle_all"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_media_play"
+        android:shortcutShortLabel="@string/shortcut_shuffle"
+        android:shortcutLongLabel="@string/shortcut_shuffle_long">
+        <intent
+            android:action="com.ruchu.player.action.SHUFFLE_ALL"
+            android:targetPackage="com.ruchu.player"
+            android:targetClass="com.ruchu.player.ShuffleActivity" />
+    </shortcut>
+</shortcuts>
