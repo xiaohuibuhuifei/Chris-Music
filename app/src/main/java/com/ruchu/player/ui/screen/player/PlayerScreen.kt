@@ -1,11 +1,15 @@
 package com.ruchu.player.ui.screen.player
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -108,7 +112,6 @@ fun PlayerScreen(
                     )
                 )
             )
-            .statusBarsPadding()
             .navigationBarsPadding()
     ) {
         // Faint album art background
@@ -126,23 +129,15 @@ fun PlayerScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .statusBarsPadding()
                 .padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                modifier = Modifier
-                    .padding(top = 8.dp, bottom = 12.dp)
-                    .width(44.dp)
-                    .height(4.dp)
-                    .clip(RoundedCornerShape(50))
-                    .background(Color.White.copy(alpha = 0.18f))
-            )
-
             // Top bar - back button + centered title
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp)
+                    .padding(top = 8.dp, bottom = 8.dp)
                     .pointerInput(onNavigateBack) {
                         detectVerticalDragGestures { _, dragAmount ->
                             if (dragAmount > 12f) {
@@ -205,6 +200,33 @@ fun PlayerScreen(
             }
 
             Spacer(modifier = Modifier.height(24.dp))
+
+            // Current lyric line preview (only when not in lyrics mode)
+            val currentLyricText = remember(lyrics, position) {
+                lyrics.indices.reversed()
+                    .find { position >= lyrics[it].timestamp }
+                    ?.let { lyrics[it].text } ?: ""
+            }
+            if (!(showLyrics && lyrics.isNotEmpty()) && currentLyricText.isNotEmpty()) {
+                AnimatedContent(
+                    targetState = currentLyricText,
+                    transitionSpec = { fadeIn(tween(400)) togetherWith fadeOut(tween(400)) },
+                    label = "lyricPreview"
+                ) { text ->
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontSize = 20.sp
+                        ),
+                        color = Primary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+            }
 
             Spacer(modifier = Modifier.height(20.dp))
 

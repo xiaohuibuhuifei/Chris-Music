@@ -37,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Shadow
@@ -135,6 +136,14 @@ fun MiniPlayer(
             .background(Surface)
             .clickable(onClick = onClick)
     ) {
+        AssetImage(
+            assetPath = song.albumArtwork,
+            contentDescription = null,
+            modifier = Modifier
+                .matchParentSize()
+                .graphicsLayer { alpha = 0.08f },
+            contentScale = ContentScale.Crop
+        )
         LinearProgressIndicator(
             progress = { progress },
             modifier = Modifier
