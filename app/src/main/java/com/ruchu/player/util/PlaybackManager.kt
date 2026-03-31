@@ -3,6 +3,7 @@ package com.ruchu.player.util
 import android.content.ComponentName
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
@@ -10,7 +11,10 @@ import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
+import com.ruchu.player.data.model.PlaybackSnapshot
 import com.ruchu.player.data.model.Song
+import com.ruchu.player.data.repository.MusicRepository
+import com.ruchu.player.data.repository.PlaybackStateStore
 import com.ruchu.player.service.MusicService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +32,10 @@ class PlaybackManager private constructor() {
     private var isConnecting = false
     private var progressJob: Job? = null
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
+    private var appContext: Context? = null
+    private var stateStore: PlaybackStateStore? = null
+    private var lastKnownPosition: Long = 0L
 
     private val _currentSong = MutableStateFlow<Song?>(null)
     val currentSong: StateFlow<Song?> = _currentSong.asStateFlow()
@@ -55,12 +63,15 @@ class PlaybackManager private constructor() {
     fun connect(context: Context) {
         if (mediaController != null || isConnecting) return
 
-        val appContext = context.applicationContext
+        val appCtx = context.applicationContext
+        appContext = appCtx
+        stateStore = PlaybackStateStore(appCtx)
+
         val sessionToken = SessionToken(
-            appContext,
-            ComponentName(appContext, MusicService::class.java)
+            appCtx,
+            ComponentName(appCtx, MusicService::class.java)
         )
-        val controllerFuture = MediaController.Builder(appContext, sessionToken).buildAsync()
+        val controllerFuture = MediaController.Builder(appCtx, sessionToken).buildAsync()
         isConnecting = true
 
         controllerFuture.addListener({
@@ -69,17 +80,36 @@ class PlaybackManager private constructor() {
                 if (mediaController == null) {
                     mediaController = controller
                     controller.addListener(playerListener)
-                    restorePendingSongIfNeeded()
+                    if (!restoreFromController(controller)) {
+                        if (!restorePendingSongIfNeeded()) {
+                            restoreFromSnapshot()
+                        }
+                    }
                     syncPlaybackUiState()
                     startProgressUpdates()
+                    Log.d(TAG, "Connected to MusicService")
                 } else {
                     controller.release()
                 }
-            } catch (_: Exception) {
+            } catch (e: Exception) {
+                Log.w(TAG, "Failed to connect to MusicService", e)
             } finally {
                 isConnecting = false
             }
-        }, ContextCompat.getMainExecutor(appContext))
+        }, ContextCompat.getMainExecutor(appCtx))
+    }
+
+    fun reconnectIfNeeded(context: Context) {
+        val controller = mediaController
+        if (controller != null && controller.playbackState != Player.STATE_IDLE) {
+            return
+        }
+        Log.d(TAG, "Controller stale or null, reconnecting...")
+        controller?.removeListener(playerListener)
+        controller?.release()
+        mediaController = null
+        isConnecting = false
+        connect(context)
     }
 
     fun playSong(song: Song, songQueue: List<Song> = emptyList()) {
@@ -148,24 +178,40 @@ class PlaybackManager private constructor() {
 
     fun cycleRepeatMode() {
         _repeatMode.value = (_repeatMode.value + 1) % 3
+        applyRepeatMode()
+    }
+
+    fun releaseController() {
+        persistSnapshot()
+        lastKnownPosition = _currentPosition.value
+        _isPlaying.value = false
+        progressJob?.cancel()
+        progressJob = null
+        mediaController?.removeListener(playerListener)
+        mediaController?.release()
+        mediaController = null
+        isConnecting = false
+        Log.d(TAG, "Controller released, state preserved")
     }
 
     private val playerListener = object : Player.Listener {
         override fun onIsPlayingChanged(isPlaying: Boolean) {
+            Log.d(TAG, "onIsPlayingChanged: $isPlaying")
             syncPlaybackUiState()
         }
 
         override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+            Log.d(TAG, "onPlayWhenReadyChanged: playWhenReady=$playWhenReady reason=$reason")
             syncPlaybackUiState()
         }
 
         override fun onPlaybackStateChanged(playbackState: Int) {
+            Log.d(TAG, "onPlaybackStateChanged: state=$playbackState")
             syncPlaybackUiState()
             if (playbackState != Player.STATE_ENDED) {
                 isSeeking = false
                 return
             }
-            // STATE_ENDED: ignore if user is seeking (prevents accidental song skip)
             if (isSeeking) {
                 isSeeking = false
                 mediaController?.seekTo(0)
@@ -184,7 +230,16 @@ class PlaybackManager private constructor() {
         }
 
         override fun onPlayerError(error: PlaybackException) {
-            next()
+            Log.w(TAG, "Player error: ${error.errorCodeName} (code=${error.errorCode})", error)
+            val shouldSkip = when (error.errorCode) {
+                PlaybackException.ERROR_CODE_IO_FILE_NOT_FOUND,
+                PlaybackException.ERROR_CODE_DECODING_FORMAT_UNSUPPORTED,
+                PlaybackException.ERROR_CODE_AUDIO_TRACK_INIT_FAILED -> true
+                else -> false
+            }
+            if (shouldSkip) next() else {
+                _isPlaying.value = false
+            }
         }
     }
 
@@ -197,12 +252,88 @@ class PlaybackManager private constructor() {
         }
     }
 
-    private fun restorePendingSongIfNeeded() {
-        val song = _currentSong.value ?: return
-        val controller = mediaController ?: return
+    /**
+     * Try to restore state from controller's current MediaItem.
+     * Returns true if restoration succeeded.
+     */
+    private fun restoreFromController(controller: MediaController): Boolean {
+        val mediaItem = controller.currentMediaItem ?: return false
+        val songId = mediaItem.mediaId
+        if (songId.isEmpty()) return false
+
+        val ctx = appContext ?: return false
+        val repo = MusicRepository(ctx)
+        val song = repo.getSong(songId) ?: return false
+
+        _currentSong.value = song
+        _currentPosition.value = controller.currentPosition.coerceAtLeast(0L)
+        val d = controller.duration
+        if (d > 0) _duration.value = d
+
+        Log.d(TAG, "Restored from controller: song=${song.id}, pos=${controller.currentPosition}")
+        return true
+    }
+
+    private fun restorePendingSongIfNeeded(): Boolean {
+        val song = _currentSong.value ?: return false
+        val controller = mediaController ?: return false
         if (controller.currentMediaItem == null) {
             playCurrentSong(song)
+            // Restore position after player prepares
+            if (lastKnownPosition > 0) {
+                val pos = lastKnownPosition
+                controller.addListener(object : Player.Listener {
+                    override fun onPlaybackStateChanged(playbackState: Int) {
+                        if (playbackState == Player.STATE_READY) {
+                            controller.seekTo(pos)
+                            lastKnownPosition = 0L
+                            controller.removeListener(this)
+                        }
+                    }
+                })
+            }
+            return true
         }
+        return false
+    }
+
+    /**
+     * Try to restore from persisted snapshot.
+     * Used when both controller and in-memory state are empty (process death).
+     */
+    private fun restoreFromSnapshot() {
+        val snapshot = stateStore?.load() ?: return
+        val ctx = appContext ?: return
+        val repo = MusicRepository(ctx)
+
+        val song = repo.getSong(snapshot.songId) ?: return
+        val restoredQueue = snapshot.queueIds.mapNotNull { repo.getSong(it) }
+        if (restoredQueue.isEmpty()) return
+
+        sourceQueue = restoredQueue
+        queue = restoredQueue
+        queueIndex = snapshot.queueIndex.coerceIn(0, restoredQueue.lastIndex.coerceAtLeast(0))
+        _currentSong.value = song
+        _shuffleMode.value = snapshot.shuffleEnabled
+        _repeatMode.value = snapshot.repeatMode
+        lastKnownPosition = snapshot.positionMs
+
+        playCurrentSong(song)
+        if (lastKnownPosition > 0) {
+            val controller = mediaController ?: return
+            val pos = lastKnownPosition
+            controller.addListener(object : Player.Listener {
+                override fun onPlaybackStateChanged(playbackState: Int) {
+                    if (playbackState == Player.STATE_READY) {
+                        controller.seekTo(pos)
+                        lastKnownPosition = 0L
+                        controller.removeListener(this)
+                    }
+                }
+            })
+        }
+
+        Log.d(TAG, "Restored from snapshot: song=${song.id}, pos=${snapshot.positionMs}")
     }
 
     private fun playCurrentSong(song: Song) {
@@ -213,6 +344,7 @@ class PlaybackManager private constructor() {
         val uri = Uri.parse("asset:///${song.fileName}")
         val mediaItem = MediaItem.Builder()
             .setUri(uri)
+            .setMediaId(song.id)
             .setMediaMetadata(
                 MediaMetadata.Builder()
                     .setTitle(song.title)
@@ -227,6 +359,7 @@ class PlaybackManager private constructor() {
             play()
         }
         _isPlaying.value = true
+        persistSnapshot()
     }
 
     private fun setShuffleMode(enabled: Boolean) {
@@ -240,7 +373,6 @@ class PlaybackManager private constructor() {
     }
 
     private fun applyRepeatMode() {
-        // Always OFF: let STATE_ENDED fire so custom queue handles all repeat logic
         mediaController?.repeatMode = Player.REPEAT_MODE_OFF
     }
 
@@ -306,7 +438,7 @@ class PlaybackManager private constructor() {
                     val d = controller.duration
                     if (d > 0) _duration.value = d
                 }
-                delay(200)
+                delay(500)
             }
         }
     }
@@ -314,7 +446,26 @@ class PlaybackManager private constructor() {
     fun getQueue(): List<Song> = queue
     fun getQueueIndex(): Int = queueIndex
 
+    private fun persistSnapshot() {
+        val song = _currentSong.value ?: return
+        val store = stateStore ?: return
+        val queueIds = queue.map { it.id }
+        store.save(
+            PlaybackSnapshot(
+                songId = song.id,
+                queueIds = queueIds,
+                queueIndex = queueIndex,
+                positionMs = _currentPosition.value,
+                shuffleEnabled = _shuffleMode.value,
+                repeatMode = _repeatMode.value,
+                playWhenReady = _isPlaying.value
+            )
+        )
+    }
+
     companion object {
+        private const val TAG = "PlaybackManager"
+
         @Volatile
         private var instance: PlaybackManager? = null
 

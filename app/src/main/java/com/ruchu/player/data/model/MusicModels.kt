@@ -70,3 +70,13 @@ data class PlayerState(
     val queue: List<Song> = emptyList(),
     val queueIndex: Int = 0
 )
+
+data class PlaybackSnapshot(
+    val songId: String,
+    val queueIds: List<String>,
+    val queueIndex: Int,
+    val positionMs: Long,
+    val shuffleEnabled: Boolean,
+    val repeatMode: Int,
+    val playWhenReady: Boolean
+)

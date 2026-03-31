@@ -9,12 +9,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.ruchu.player.ui.navigation.RuChuNavHost
 import com.ruchu.player.ui.theme.RuChuTheme
+import com.ruchu.player.util.PlaybackManager
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             RuChuTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
@@ -22,5 +24,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        PlaybackManager.getInstance(this).reconnectIfNeeded(this)
     }
 }

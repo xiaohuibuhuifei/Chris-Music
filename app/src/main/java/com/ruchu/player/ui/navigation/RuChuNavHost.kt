@@ -28,10 +28,6 @@ fun RuChuNavHost() {
     val navController = rememberNavController()
     var showPlayer by rememberSaveable { mutableStateOf(false) }
 
-    BackHandler(enabled = showPlayer) {
-        showPlayer = false
-    }
-
     Box(modifier = Modifier.fillMaxSize()) {
         NavHost(
             navController = navController,
@@ -73,6 +69,9 @@ fun RuChuNavHost() {
             enter = slideInVertically(initialOffsetY = { it }),
             exit = slideOutVertically(targetOffsetY = { it })
         ) {
+            BackHandler(enabled = true) {
+                showPlayer = false
+            }
             PlayerScreen(onNavigateBack = { showPlayer = false })
         }
     }
