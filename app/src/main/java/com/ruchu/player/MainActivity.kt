@@ -1,5 +1,6 @@
 package com.ruchu.player
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,8 +27,19 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+    }
+
     override fun onResume() {
         super.onResume()
-        PlaybackManager.getInstance(this).reconnectIfNeeded(this)
+        val pm = PlaybackManager.getInstance(this)
+        pm.reconnectIfNeeded(this)
+
+        if (intent?.getBooleanExtra(ShuffleActivity.EXTRA_SHUFFLE_ALL, false) == true) {
+            intent?.removeExtra(ShuffleActivity.EXTRA_SHUFFLE_ALL)
+            pm.shuffleAllFromShortcut(this)
+        }
     }
 }

@@ -310,7 +310,7 @@ fun AlbumCard(
             overflow = TextOverflow.Ellipsis
         )
         Text(
-            text = "${album.year}",
+            text = album.year?.toString() ?: "${album.songs.size}首",
             style = MaterialTheme.typography.bodySmall,
             color = OnSurfaceVariant
         )

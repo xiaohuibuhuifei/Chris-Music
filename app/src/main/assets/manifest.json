@@ -1,6 +1,485 @@
 {
   "albums": [
     {
+      "id": "danqu",
+      "title": "单曲",
+      "artwork": "artwork/单曲.jpg",
+      "songs": [
+        {
+          "id": "danqu_01",
+          "title": "回春天",
+          "fileName": "music/danqu/回春天.mp3",
+          "lyricsFile": "music/danqu/回春天.lrc",
+          "duration": 239,
+          "trackNumber": 1
+        },
+        {
+          "id": "danqu_02",
+          "title": "素人",
+          "fileName": "music/danqu/素人.mp3",
+          "lyricsFile": "music/danqu/素人.lrc",
+          "duration": 288,
+          "trackNumber": 2
+        },
+        {
+          "id": "danqu_03",
+          "title": "爱你所爱",
+          "fileName": "music/danqu/爱你所爱.mp3",
+          "lyricsFile": "music/danqu/爱你所爱.lrc",
+          "duration": 201,
+          "trackNumber": 3
+        },
+        {
+          "id": "danqu_04",
+          "title": "信",
+          "fileName": "music/danqu/信.mp3",
+          "lyricsFile": "music/danqu/信.lrc",
+          "duration": 214,
+          "trackNumber": 4
+        },
+        {
+          "id": "danqu_05",
+          "title": "冬泳",
+          "fileName": "music/danqu/冬泳.mp3",
+          "lyricsFile": "music/danqu/冬泳.lrc",
+          "duration": 221,
+          "trackNumber": 5
+        },
+        {
+          "id": "danqu_06",
+          "title": "春雨里",
+          "fileName": "music/danqu/春雨里.mp3",
+          "lyricsFile": "music/danqu/春雨里.lrc",
+          "duration": 282,
+          "trackNumber": 6
+        },
+        {
+          "id": "danqu_07",
+          "title": "清风醉",
+          "fileName": "music/danqu/清风醉.mp3",
+          "lyricsFile": "music/danqu/清风醉.lrc",
+          "duration": 235,
+          "trackNumber": 7
+        },
+        {
+          "id": "danqu_08",
+          "title": "大梦归离",
+          "fileName": "music/danqu/大梦归离.mp3",
+          "lyricsFile": "music/danqu/大梦归离.lrc",
+          "duration": 281,
+          "trackNumber": 8
+        },
+        {
+          "id": "danqu_09",
+          "title": "是你",
+          "fileName": "music/danqu/是你.mp3",
+          "lyricsFile": "music/danqu/是你.lrc",
+          "duration": 320,
+          "trackNumber": 9
+        },
+        {
+          "id": "danqu_10",
+          "title": "今天有朵云爱我",
+          "fileName": "music/danqu/今天有朵云爱我.mp3",
+          "lyricsFile": "music/danqu/今天有朵云爱我.lrc",
+          "duration": 227,
+          "trackNumber": 10
+        },
+        {
+          "id": "danqu_11",
+          "title": "人间值得",
+          "fileName": "music/danqu/人间值得.mp3",
+          "lyricsFile": "music/danqu/人间值得.lrc",
+          "duration": 241,
+          "trackNumber": 11
+        },
+        {
+          "id": "danqu_12",
+          "title": "乘着风",
+          "fileName": "music/danqu/乘着风.mp3",
+          "lyricsFile": "music/danqu/乘着风.lrc",
+          "duration": 280,
+          "trackNumber": 12
+        },
+        {
+          "id": "danqu_13",
+          "title": "给给",
+          "fileName": "music/danqu/给给.mp3",
+          "lyricsFile": "music/danqu/给给.lrc",
+          "duration": 237,
+          "trackNumber": 13
+        },
+        {
+          "id": "danqu_14",
+          "title": "送它回家",
+          "fileName": "music/danqu/送它回家.mp3",
+          "lyricsFile": "music/danqu/送它回家.lrc",
+          "duration": 231,
+          "trackNumber": 14
+        },
+        {
+          "id": "danqu_15",
+          "title": "银河中的星星",
+          "fileName": "music/danqu/银河中的星星.mp3",
+          "lyricsFile": "music/danqu/银河中的星星.lrc",
+          "duration": 279,
+          "trackNumber": 15
+        },
+        {
+          "id": "danqu_16",
+          "title": "清福",
+          "fileName": "music/danqu/清福.mp3",
+          "lyricsFile": "music/danqu/清福.lrc",
+          "duration": 316,
+          "trackNumber": 16
+        },
+        {
+          "id": "danqu_17",
+          "title": "闭嘴跳舞",
+          "fileName": "music/danqu/闭嘴跳舞.mp3",
+          "lyricsFile": "music/danqu/闭嘴跳舞.lrc",
+          "duration": 185,
+          "trackNumber": 17
+        },
+        {
+          "id": "danqu_18",
+          "title": "软肋",
+          "fileName": "music/danqu/软肋.mp3",
+          "lyricsFile": "music/danqu/软肋.lrc",
+          "duration": 257,
+          "trackNumber": 18
+        },
+        {
+          "id": "danqu_19",
+          "title": "无价之姐",
+          "fileName": "music/danqu/无价之姐.mp3",
+          "lyricsFile": "music/danqu/无价之姐.lrc",
+          "duration": 184,
+          "trackNumber": 19
+        },
+        {
+          "id": "danqu_20",
+          "title": "国家2020",
+          "fileName": "music/danqu/国家2020.mp3",
+          "lyricsFile": "music/danqu/国家2020.lrc",
+          "duration": 265,
+          "trackNumber": 20
+        },
+        {
+          "id": "danqu_21",
+          "title": "Good Good",
+          "fileName": "music/danqu/Good Good.mp3",
+          "lyricsFile": "music/danqu/Good Good.lrc",
+          "duration": 203,
+          "trackNumber": 21
+        },
+        {
+          "id": "danqu_22",
+          "title": "把我最爱的文字读给你听",
+          "fileName": "music/danqu/把我最爱的文字读给你听.mp3",
+          "lyricsFile": "music/danqu/把我最爱的文字读给你听.lrc",
+          "duration": 257,
+          "trackNumber": 22
+        },
+        {
+          "id": "danqu_23",
+          "title": "岁岁平安",
+          "fileName": "music/danqu/岁岁平安.mp3",
+          "lyricsFile": "music/danqu/岁岁平安.lrc",
+          "duration": 209,
+          "trackNumber": 23
+        },
+        {
+          "id": "danqu_24",
+          "title": "面朝大海，春暖花开",
+          "fileName": "music/danqu/面朝大海，春暖花开.mp3",
+          "lyricsFile": "music/danqu/面朝大海，春暖花开.lrc",
+          "duration": 208,
+          "trackNumber": 24
+        },
+        {
+          "id": "danqu_25",
+          "title": "你是人间的四月天",
+          "fileName": "music/danqu/你是人间的四月天.mp3",
+          "lyricsFile": "music/danqu/你是人间的四月天.lrc",
+          "duration": 307,
+          "trackNumber": 25
+        },
+        {
+          "id": "danqu_26",
+          "title": "如果我不是我",
+          "fileName": "music/danqu/如果我不是我.mp3",
+          "lyricsFile": "music/danqu/如果我不是我.lrc",
+          "duration": 207,
+          "trackNumber": 26
+        },
+        {
+          "id": "danqu_27",
+          "title": "咏春",
+          "fileName": "music/danqu/咏春.mp3",
+          "lyricsFile": "music/danqu/咏春.lrc",
+          "duration": 251,
+          "trackNumber": 27
+        },
+        {
+          "id": "danqu_28",
+          "title": "青春颂",
+          "fileName": "music/danqu/青春颂.mp3",
+          "lyricsFile": "music/danqu/青春颂.lrc",
+          "duration": 302,
+          "trackNumber": 28
+        },
+        {
+          "id": "danqu_29",
+          "title": "野望",
+          "fileName": "music/danqu/野望.mp3",
+          "lyricsFile": "music/danqu/野望.lrc",
+          "duration": 258,
+          "trackNumber": 29
+        },
+        {
+          "id": "danqu_30",
+          "title": "作为怪物",
+          "fileName": "music/danqu/作为怪物.mp3",
+          "lyricsFile": "music/danqu/作为怪物.lrc",
+          "duration": 265,
+          "trackNumber": 30
+        },
+        {
+          "id": "danqu_31",
+          "title": "木兰",
+          "fileName": "music/danqu/木兰.mp3",
+          "lyricsFile": "music/danqu/木兰.lrc",
+          "duration": 201,
+          "trackNumber": 31
+        },
+        {
+          "id": "danqu_32",
+          "title": "动物世界",
+          "fileName": "music/danqu/动物世界.mp3",
+          "lyricsFile": "music/danqu/动物世界.lrc",
+          "duration": 223,
+          "trackNumber": 32
+        },
+        {
+          "id": "danqu_33",
+          "title": "你是如此难以忘记",
+          "fileName": "music/danqu/你是如此难以忘记.mp3",
+          "lyricsFile": "music/danqu/你是如此难以忘记.lrc",
+          "duration": 195,
+          "trackNumber": 33
+        },
+        {
+          "id": "danqu_34",
+          "title": "If You Were The Only Girl In The World",
+          "fileName": "music/danqu/If You Were The Only Girl In The World.mp3",
+          "lyricsFile": "music/danqu/If You Were The Only Girl In The World.lrc",
+          "duration": 163,
+          "trackNumber": 34
+        },
+        {
+          "id": "danqu_35",
+          "title": "丝萝",
+          "fileName": "music/danqu/丝萝.mp3",
+          "lyricsFile": "music/danqu/丝萝.lrc",
+          "duration": 238,
+          "trackNumber": 35
+        },
+        {
+          "id": "danqu_36",
+          "title": "山河故人",
+          "fileName": "music/danqu/山河故人.mp3",
+          "lyricsFile": "music/danqu/山河故人.lrc",
+          "duration": 212,
+          "trackNumber": 36
+        },
+        {
+          "id": "danqu_37",
+          "title": "唐人街",
+          "fileName": "music/danqu/唐人街.mp3",
+          "lyricsFile": "music/danqu/唐人街.lrc",
+          "duration": 271,
+          "trackNumber": 37
+        },
+        {
+          "id": "danqu_38",
+          "title": "爱有引力",
+          "fileName": "music/danqu/爱有引力.mp3",
+          "lyricsFile": "music/danqu/爱有引力.lrc",
+          "duration": 221,
+          "trackNumber": 38
+        },
+        {
+          "id": "danqu_39",
+          "title": "混蛋，我想你",
+          "fileName": "music/danqu/混蛋，我想你.mp3",
+          "lyricsFile": "music/danqu/混蛋，我想你.lrc",
+          "duration": 179,
+          "trackNumber": 39
+        },
+        {
+          "id": "danqu_40",
+          "title": "为爱感动",
+          "fileName": "music/danqu/为爱感动.mp3",
+          "lyricsFile": "music/danqu/为爱感动.lrc",
+          "duration": 191,
+          "trackNumber": 40
+        },
+        {
+          "id": "danqu_41",
+          "title": "刀锋偏冷",
+          "fileName": "music/danqu/刀锋偏冷.mp3",
+          "lyricsFile": "music/danqu/刀锋偏冷.lrc",
+          "duration": 224,
+          "trackNumber": 41
+        },
+        {
+          "id": "danqu_42",
+          "title": "走进你的梦",
+          "fileName": "music/danqu/走进你的梦.mp3",
+          "lyricsFile": "music/danqu/走进你的梦.lrc",
+          "duration": 173,
+          "trackNumber": 42
+        },
+        {
+          "id": "danqu_43",
+          "title": "珍惜",
+          "fileName": "music/danqu/珍惜.mp3",
+          "lyricsFile": "music/danqu/珍惜.lrc",
+          "duration": 300,
+          "trackNumber": 43
+        },
+        {
+          "id": "danqu_44",
+          "title": "纯真年代",
+          "fileName": "music/danqu/纯真年代.mp3",
+          "lyricsFile": "music/danqu/纯真年代.lrc",
+          "duration": 190,
+          "trackNumber": 44
+        },
+        {
+          "id": "danqu_45",
+          "title": "序幕",
+          "fileName": "music/danqu/序幕.mp3",
+          "lyricsFile": "music/danqu/序幕.lrc",
+          "duration": 190,
+          "trackNumber": 45
+        },
+        {
+          "id": "danqu_46",
+          "title": "小翅膀",
+          "fileName": "music/danqu/小翅膀.mp3",
+          "lyricsFile": "music/danqu/小翅膀.lrc",
+          "duration": 227,
+          "trackNumber": 46
+        },
+        {
+          "id": "danqu_47",
+          "title": "天涯共此时",
+          "fileName": "music/danqu/天涯共此时.mp3",
+          "lyricsFile": "music/danqu/天涯共此时.lrc",
+          "duration": 290,
+          "trackNumber": 47
+        },
+        {
+          "id": "danqu_48",
+          "title": "我在这里",
+          "fileName": "music/danqu/我在这里 (Live).mp3",
+          "lyricsFile": "music/danqu/我在这里 (Live).lrc",
+          "duration": 190,
+          "trackNumber": 48
+        },
+        {
+          "id": "danqu_49",
+          "title": "Why Me",
+          "fileName": "music/danqu/Why Me.mp3",
+          "lyricsFile": "music/danqu/Why Me.lrc",
+          "duration": 205,
+          "trackNumber": 49
+        },
+        {
+          "id": "danqu_50",
+          "title": "粉末",
+          "fileName": "music/danqu/粉末.mp3",
+          "lyricsFile": "music/danqu/粉末.lrc",
+          "duration": 204,
+          "trackNumber": 50
+        },
+        {
+          "id": "danqu_51",
+          "title": "湘江的笔画",
+          "fileName": "music/danqu/湘江的笔画.mp3",
+          "lyricsFile": "music/danqu/湘江的笔画.lrc",
+          "duration": 262,
+          "trackNumber": 51
+        },
+        {
+          "id": "danqu_52",
+          "title": "AOAEO出发",
+          "fileName": "music/danqu/AOAEO出发.mp3",
+          "lyricsFile": "music/danqu/AOAEO出发.lrc",
+          "duration": 190,
+          "trackNumber": 52
+        },
+        {
+          "id": "danqu_53",
+          "title": "蜀绣",
+          "fileName": "music/danqu/蜀绣.mp3",
+          "lyricsFile": "music/danqu/蜀绣.lrc",
+          "duration": 281,
+          "trackNumber": 53
+        },
+        {
+          "id": "danqu_54",
+          "title": "用爱点亮希望",
+          "fileName": "music/danqu/用爱点亮希望.mp3",
+          "lyricsFile": "music/danqu/用爱点亮希望.lrc",
+          "duration": 249,
+          "trackNumber": 54
+        },
+        {
+          "id": "danqu_55",
+          "title": "倾国倾城",
+          "fileName": "music/danqu/倾国倾城.mp3",
+          "lyricsFile": "music/danqu/倾国倾城.lrc",
+          "duration": 269,
+          "trackNumber": 55
+        },
+        {
+          "id": "danqu_56",
+          "title": "唱得响亮",
+          "fileName": "music/danqu/唱得响亮.mp3",
+          "lyricsFile": "music/danqu/唱得响亮.lrc",
+          "duration": 218,
+          "trackNumber": 56
+        },
+        {
+          "id": "danqu_57",
+          "title": "Give Me Five",
+          "fileName": "music/danqu/Give Me Five.mp3",
+          "lyricsFile": "music/danqu/Give Me Five.lrc",
+          "duration": 237,
+          "trackNumber": 57
+        },
+        {
+          "id": "danqu_58",
+          "title": "甜蜜的，我爱你",
+          "fileName": "music/danqu/甜蜜的 我爱你.mp3",
+          "lyricsFile": "music/danqu/甜蜜的 我爱你.lrc",
+          "duration": 200,
+          "trackNumber": 58
+        },
+        {
+          "id": "danqu_59",
+          "title": "想唱就唱",
+          "fileName": "music/danqu/想唱就唱.mp3",
+          "lyricsFile": "music/danqu/想唱就唱.lrc",
+          "duration": 236,
+          "trackNumber": 59
+        }
+      ]
+    },
+    {
       "id": "huanghou_yu_mengxiang",
       "title": "皇后与梦想",
       "year": 2006,
@@ -9,88 +488,88 @@
         {
           "id": "huanghou_yu_mengxiang_01",
           "title": "皇后与梦想",
-          "fileName": "music/皇后与梦想.mp3",
-          "lyricsFile": "music/皇后与梦想.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/皇后与梦想.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/皇后与梦想.lrc",
           "duration": 247,
           "trackNumber": 1
         },
         {
           "id": "huanghou_yu_mengxiang_02",
           "title": "舞",
-          "fileName": "music/舞.mp3",
-          "lyricsFile": "music/舞.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/舞.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/舞.lrc",
           "duration": 220,
           "trackNumber": 2
         },
         {
           "id": "huanghou_yu_mengxiang_03",
           "title": "Loving",
-          "fileName": "music/Loving.mp3",
-          "lyricsFile": "music/Loving.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/Loving.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/Loving.lrc",
           "duration": 264,
           "trackNumber": 3
         },
         {
           "id": "huanghou_yu_mengxiang_04",
           "title": "Happy Wake Up",
-          "fileName": "music/Happy Wake Up.mp3",
-          "lyricsFile": "music/Happy Wake Up.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/Happy Wake Up.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/Happy Wake Up.lrc",
           "duration": 239,
           "trackNumber": 4
         },
         {
           "id": "huanghou_yu_mengxiang_05",
           "title": "冰菊物语",
-          "fileName": "music/冰菊物语.mp3",
-          "lyricsFile": "music/冰菊物语.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/冰菊物语.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/冰菊物语.lrc",
           "duration": 294,
           "trackNumber": 5
         },
         {
           "id": "huanghou_yu_mengxiang_06",
           "title": "下雨",
-          "fileName": "music/下雨.mp3",
-          "lyricsFile": "music/下雨.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/下雨.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/下雨.lrc",
           "duration": 262,
           "trackNumber": 6
         },
         {
           "id": "huanghou_yu_mengxiang_07",
           "title": "KuLaLa",
-          "fileName": "music/KuLaLa.mp3",
-          "lyricsFile": "music/KuLaLa.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/KuLaLa.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/KuLaLa.lrc",
           "duration": 207,
           "trackNumber": 7
         },
         {
           "id": "huanghou_yu_mengxiang_08",
           "title": "0.5英里",
-          "fileName": "music/0.5英里.mp3",
-          "lyricsFile": "music/0.5英里.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/0.5英里.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/0.5英里.lrc",
           "duration": 243,
           "trackNumber": 8
         },
         {
           "id": "huanghou_yu_mengxiang_09",
           "title": "等",
-          "fileName": "music/等.mp3",
-          "lyricsFile": "music/等.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/等.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/等.lrc",
           "duration": 234,
           "trackNumber": 9
         },
         {
           "id": "huanghou_yu_mengxiang_10",
           "title": "想哭",
-          "fileName": "music/想哭.mp3",
-          "lyricsFile": "music/想哭.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/想哭.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/想哭.lrc",
           "duration": 216,
           "trackNumber": 10
         },
         {
           "id": "huanghou_yu_mengxiang_12",
           "title": "Chris Lee",
-          "fileName": "music/Chris Lee.mp3",
-          "lyricsFile": "music/Chris Lee.lrc",
+          "fileName": "music/huanghou_yu_mengxiang/Chris Lee.mp3",
+          "lyricsFile": "music/huanghou_yu_mengxiang/Chris Lee.lrc",
           "duration": 205,
           "trackNumber": 11
         }
@@ -105,88 +584,88 @@
         {
           "id": "wode_01",
           "title": "我的王国",
-          "fileName": "music/我的王国.mp3",
-          "lyricsFile": "music/我的王国.lrc",
+          "fileName": "music/wode/我的王国.mp3",
+          "lyricsFile": "music/wode/我的王国.lrc",
           "duration": 268,
           "trackNumber": 1
         },
         {
           "id": "wode_02",
           "title": "我",
-          "fileName": "music/我.mp3",
-          "lyricsFile": "music/我.lrc",
+          "fileName": "music/wode/我.mp3",
+          "lyricsFile": "music/wode/我.lrc",
           "duration": 252,
           "trackNumber": 2
         },
         {
           "id": "wode_03",
           "title": "漂浮地铁",
-          "fileName": "music/漂浮地铁.mp3",
-          "lyricsFile": "music/漂浮地铁.lrc",
+          "fileName": "music/wode/漂浮地铁.mp3",
+          "lyricsFile": "music/wode/漂浮地铁.lrc",
           "duration": 266,
           "trackNumber": 3
         },
         {
           "id": "wode_04",
           "title": "Stop",
-          "fileName": "music/Stop.mp3",
-          "lyricsFile": "music/Stop.lrc",
+          "fileName": "music/wode/Stop.mp3",
+          "lyricsFile": "music/wode/Stop.lrc",
           "duration": 246,
           "trackNumber": 4
         },
         {
           "id": "wode_05",
           "title": "Happy Hour",
-          "fileName": "music/Happy Hour.mp3",
-          "lyricsFile": "music/Happy Hour.lrc",
+          "fileName": "music/wode/Happy Hour.mp3",
+          "lyricsFile": "music/wode/Happy Hour.lrc",
           "duration": 230,
           "trackNumber": 5
         },
         {
           "id": "wode_06",
           "title": "我的88个朋友",
-          "fileName": "music/我的88个朋友.mp3",
-          "lyricsFile": "music/我的88个朋友.lrc",
+          "fileName": "music/wode/我的88个朋友.mp3",
+          "lyricsFile": "music/wode/我的88个朋友.lrc",
           "duration": 251,
           "trackNumber": 6
         },
         {
           "id": "wode_07",
           "title": "爱的12句",
-          "fileName": "music/爱的12句.mp3",
-          "lyricsFile": "music/爱的12句.lrc",
+          "fileName": "music/wode/爱的12句.mp3",
+          "lyricsFile": "music/wode/爱的12句.lrc",
           "duration": 258,
           "trackNumber": 7
         },
         {
           "id": "wode_08",
           "title": "OVER IT",
-          "fileName": "music/OVER IT.mp3",
-          "lyricsFile": "music/OVER IT.lrc",
+          "fileName": "music/wode/OVER IT.mp3",
+          "lyricsFile": "music/wode/OVER IT.lrc",
           "duration": 278,
           "trackNumber": 8
         },
         {
           "id": "wode_09",
           "title": "潘帕斯之舞",
-          "fileName": "music/潘帕斯之舞.mp3",
-          "lyricsFile": "music/潘帕斯之舞.lrc",
+          "fileName": "music/wode/潘帕斯之舞.mp3",
+          "lyricsFile": "music/wode/潘帕斯之舞.lrc",
           "duration": 282,
           "trackNumber": 9
         },
         {
           "id": "wode_10",
           "title": "我的功夫",
-          "fileName": "music/我的功夫.mp3",
-          "lyricsFile": "music/我的功夫.lrc",
+          "fileName": "music/wode/我的功夫.mp3",
+          "lyricsFile": "music/wode/我的功夫.lrc",
           "duration": 307,
           "trackNumber": 10
         },
         {
           "id": "wode_11",
           "title": "我的黑白色",
-          "fileName": "music/我的黑白色.mp3",
-          "lyricsFile": "music/我的黑白色.lrc",
+          "fileName": "music/wode/我的黑白色.mp3",
+          "lyricsFile": "music/wode/我的黑白色.lrc",
           "duration": 337,
           "trackNumber": 11
         }
@@ -201,49 +680,105 @@
         {
           "id": "shaonian_zhongguo_01",
           "title": "我是你的XX(Version 2008)",
-          "fileName": "music/我是你的XX(Version 2008).mp3",
-          "lyricsFile": "music/我是你的XX(Version 2008).lrc",
+          "fileName": "music/shaonian_zhongguo/我是你的XX(Version 2008).mp3",
+          "lyricsFile": "music/shaonian_zhongguo/我是你的XX(Version 2008).lrc",
           "duration": 225,
           "trackNumber": 1
         },
         {
           "id": "shaonian_zhongguo_02",
           "title": "花容瘦",
-          "fileName": "music/花容瘦.mp3",
-          "lyricsFile": "music/花容瘦.lrc",
+          "fileName": "music/shaonian_zhongguo/花容瘦.mp3",
+          "lyricsFile": "music/shaonian_zhongguo/花容瘦.lrc",
           "duration": 227,
           "trackNumber": 2
         },
         {
           "id": "shaonian_zhongguo_03",
           "title": "少年中国",
-          "fileName": "music/少年中国.mp3",
-          "lyricsFile": "music/少年中国.lrc",
+          "fileName": "music/shaonian_zhongguo/少年中国.mp3",
+          "lyricsFile": "music/shaonian_zhongguo/少年中国.lrc",
           "duration": 285,
           "trackNumber": 3
         },
         {
           "id": "shaonian_zhongguo_04",
           "title": "差生",
-          "fileName": "music/差生.mp3",
-          "lyricsFile": "music/差生.lrc",
+          "fileName": "music/shaonian_zhongguo/差生.mp3",
+          "lyricsFile": "music/shaonian_zhongguo/差生.lrc",
           "duration": 290,
           "trackNumber": 4
         },
         {
           "id": "shaonian_zhongguo_05",
           "title": "秀才胡同",
-          "fileName": "music/秀才胡同.mp3",
-          "lyricsFile": "music/秀才胡同.lrc",
+          "fileName": "music/shaonian_zhongguo/秀才胡同.mp3",
+          "lyricsFile": "music/shaonian_zhongguo/秀才胡同.lrc",
           "duration": 291,
           "trackNumber": 5
         },
         {
           "id": "shaonian_zhongguo_06",
           "title": "HNTV(Bonus Track)",
-          "fileName": "music/HNTV(Bonus Track).mp3",
-          "lyricsFile": "music/HNTV(Bonus Track).lrc",
+          "fileName": "music/shaonian_zhongguo/HNTV(Bonus Track).mp3",
+          "lyricsFile": "music/shaonian_zhongguo/HNTV(Bonus Track).lrc",
           "duration": 265,
+          "trackNumber": 6
+        }
+      ]
+    },
+    {
+      "id": "nplus1_evolution",
+      "title": "N+1 Evolution",
+      "year": 2008,
+      "artwork": "artwork/N+1 Evolution.jpg",
+      "songs": [
+        {
+          "id": "nplus1_evolution_01",
+          "title": "一开始就知道",
+          "fileName": "music/nplus1_evolution/一开始就知道.mp3",
+          "lyricsFile": "music/nplus1_evolution/一开始就知道.lrc",
+          "duration": 259,
+          "trackNumber": 1
+        },
+        {
+          "id": "nplus1_evolution_02",
+          "title": "梨花香",
+          "fileName": "music/nplus1_evolution/梨花香.mp3",
+          "lyricsFile": "music/nplus1_evolution/梨花香.lrc",
+          "duration": 229,
+          "trackNumber": 2
+        },
+        {
+          "id": "nplus1_evolution_03",
+          "title": "N+1",
+          "fileName": "music/nplus1_evolution/N＋1.mp3",
+          "lyricsFile": "music/nplus1_evolution/N＋1.lrc",
+          "duration": 263,
+          "trackNumber": 3
+        },
+        {
+          "id": "nplus1_evolution_04",
+          "title": "爱得太傻",
+          "fileName": "music/nplus1_evolution/爱得太傻.mp3",
+          "lyricsFile": "music/nplus1_evolution/爱得太傻.lrc",
+          "duration": 262,
+          "trackNumber": 4
+        },
+        {
+          "id": "nplus1_evolution_05",
+          "title": "和你一样",
+          "fileName": "music/nplus1_evolution/和你一样.mp3",
+          "lyricsFile": "music/nplus1_evolution/和你一样.lrc",
+          "duration": 307,
+          "trackNumber": 5
+        },
+        {
+          "id": "nplus1_evolution_06",
+          "title": "冬天快乐",
+          "fileName": "music/nplus1_evolution/冬天快乐.mp3",
+          "lyricsFile": "music/nplus1_evolution/冬天快乐.lrc",
+          "duration": 280,
           "trackNumber": 6
         }
       ]
@@ -257,88 +792,88 @@
         {
           "id": "liyuchun_tongming_01",
           "title": "阿么",
-          "fileName": "music/阿么.mp3",
-          "lyricsFile": "music/阿么.lrc",
+          "fileName": "music/liyuchun_tongming/阿么.mp3",
+          "lyricsFile": "music/liyuchun_tongming/阿么.lrc",
           "duration": 251,
           "trackNumber": 1
         },
         {
           "id": "liyuchun_tongming_02",
           "title": "下个, 路口, 见",
-          "fileName": "music/下个, 路口, 见.mp3",
-          "lyricsFile": "music/下个, 路口, 见.lrc",
+          "fileName": "music/liyuchun_tongming/下个, 路口, 见.mp3",
+          "lyricsFile": "music/liyuchun_tongming/下个, 路口, 见.lrc",
           "duration": 213,
           "trackNumber": 2
         },
         {
           "id": "liyuchun_tongming_03",
           "title": "常旅客",
-          "fileName": "music/常旅客.mp3",
-          "lyricsFile": "music/常旅客.lrc",
+          "fileName": "music/liyuchun_tongming/常旅客.mp3",
+          "lyricsFile": "music/liyuchun_tongming/常旅客.lrc",
           "duration": 287,
           "trackNumber": 3
         },
         {
           "id": "liyuchun_tongming_04",
           "title": "活该",
-          "fileName": "music/活该.mp3",
-          "lyricsFile": "music/活该.lrc",
+          "fileName": "music/liyuchun_tongming/活该.mp3",
+          "lyricsFile": "music/liyuchun_tongming/活该.lrc",
           "duration": 217,
           "trackNumber": 4
         },
         {
           "id": "liyuchun_tongming_05",
           "title": "一点一点",
-          "fileName": "music/一点一点.mp3",
-          "lyricsFile": "music/一点一点.lrc",
+          "fileName": "music/liyuchun_tongming/一点一点.mp3",
+          "lyricsFile": "music/liyuchun_tongming/一点一点.lrc",
           "duration": 256,
           "trackNumber": 5
         },
         {
           "id": "liyuchun_tongming_06",
           "title": "脚踏板",
-          "fileName": "music/脚踏板.mp3",
-          "lyricsFile": "music/脚踏板.lrc",
+          "fileName": "music/liyuchun_tongming/脚踏板.mp3",
+          "lyricsFile": "music/liyuchun_tongming/脚踏板.lrc",
           "duration": 245,
           "trackNumber": 6
         },
         {
           "id": "liyuchun_tongming_07",
           "title": "小朋友",
-          "fileName": "music/小朋友.mp3",
-          "lyricsFile": "music/小朋友.lrc",
+          "fileName": "music/liyuchun_tongming/小朋友.mp3",
+          "lyricsFile": "music/liyuchun_tongming/小朋友.lrc",
           "duration": 209,
           "trackNumber": 7
         },
         {
           "id": "liyuchun_tongming_08",
           "title": "小宇宙",
-          "fileName": "music/小宇宙.mp3",
-          "lyricsFile": "music/小宇宙.lrc",
+          "fileName": "music/liyuchun_tongming/小宇宙.mp3",
+          "lyricsFile": "music/liyuchun_tongming/小宇宙.lrc",
           "duration": 227,
           "trackNumber": 8
         },
         {
           "id": "liyuchun_tongming_09",
           "title": "千域千寻",
-          "fileName": "music/千域千寻.mp3",
-          "lyricsFile": "music/千域千寻.lrc",
+          "fileName": "music/liyuchun_tongming/千域千寻.mp3",
+          "lyricsFile": "music/liyuchun_tongming/千域千寻.lrc",
           "duration": 233,
           "trackNumber": 9
         },
         {
           "id": "liyuchun_tongming_10",
           "title": "籁赋",
-          "fileName": "music/籁赋.mp3",
-          "lyricsFile": "music/籁赋.lrc",
+          "fileName": "music/liyuchun_tongming/籁赋.mp3",
+          "lyricsFile": "music/liyuchun_tongming/籁赋.lrc",
           "duration": 230,
           "trackNumber": 10
         },
         {
           "id": "liyuchun_tongming_11",
           "title": "还有我疼你",
-          "fileName": "music/还有我疼你.mp3",
-          "lyricsFile": "music/还有我疼你.lrc",
+          "fileName": "music/liyuchun_tongming/还有我疼你.mp3",
+          "lyricsFile": "music/liyuchun_tongming/还有我疼你.lrc",
           "duration": 323,
           "trackNumber": 11
         }
@@ -353,80 +888,80 @@
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_01",
           "title": "会跳舞的文艺青年",
-          "fileName": "music/会跳舞的文艺青年.mp3",
-          "lyricsFile": "music/会跳舞的文艺青年.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/会跳舞的文艺青年.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/会跳舞的文艺青年.lrc",
           "duration": 307,
           "trackNumber": 1
         },
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_02",
           "title": "对不起, 只是忽然很想你",
-          "fileName": "music/对不起, 只是忽然很想你.mp3",
-          "lyricsFile": "music/对不起, 只是忽然很想你.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/对不起, 只是忽然很想你.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/对不起, 只是忽然很想你.lrc",
           "duration": 262,
           "trackNumber": 2
         },
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_03",
           "title": "我唱啦啦啦",
-          "fileName": "music/我唱啦啦啦.mp3",
-          "lyricsFile": "music/我唱啦啦啦.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/我唱啦啦啦.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/我唱啦啦啦.lrc",
           "duration": 262,
           "trackNumber": 3
         },
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_04",
           "title": "失心疯",
-          "fileName": "music/失心疯.mp3",
-          "lyricsFile": "music/失心疯.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/失心疯.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/失心疯.lrc",
           "duration": 278,
           "trackNumber": 4
         },
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_05",
           "title": "淹死的鱼",
-          "fileName": "music/淹死的鱼.mp3",
-          "lyricsFile": "music/淹死的鱼.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/淹死的鱼.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/淹死的鱼.lrc",
           "duration": 290,
           "trackNumber": 5
         },
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_06",
           "title": "街角",
-          "fileName": "music/街角.mp3",
-          "lyricsFile": "music/街角.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/街角.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/街角.lrc",
           "duration": 237,
           "trackNumber": 6
         },
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_07",
           "title": "小聪明舞曲",
-          "fileName": "music/小聪明舞曲.mp3",
-          "lyricsFile": "music/小聪明舞曲.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/小聪明舞曲.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/小聪明舞曲.lrc",
           "duration": 259,
           "trackNumber": 7
         },
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_08",
           "title": "入戏",
-          "fileName": "music/入戏.mp3",
-          "lyricsFile": "music/入戏.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/入戏.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/入戏.lrc",
           "duration": 274,
           "trackNumber": 8
         },
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_09",
           "title": "没有计划的旅行",
-          "fileName": "music/没有计划的旅行.mp3",
-          "lyricsFile": "music/没有计划的旅行.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/没有计划的旅行.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/没有计划的旅行.lrc",
           "duration": 252,
           "trackNumber": 9
         },
         {
           "id": "hui_tiaowu_de_wenyi_qingnian_10",
           "title": "My Love",
-          "fileName": "music/My Love.mp3",
-          "lyricsFile": "music/My Love.lrc",
+          "fileName": "music/hui_tiaowu_de_wenyi_qingnian/My Love.mp3",
+          "lyricsFile": "music/hui_tiaowu_de_wenyi_qingnian/My Love.lrc",
           "duration": 136,
           "trackNumber": 10
         }
@@ -441,80 +976,80 @@
         {
           "id": "zaibufengkuang_01",
           "title": "似火年华",
-          "fileName": "music/似火年华.mp3",
-          "lyricsFile": "music/似火年华.lrc",
+          "fileName": "music/zaibufengkuang/似火年华.mp3",
+          "lyricsFile": "music/zaibufengkuang/似火年华.lrc",
           "duration": 269,
           "trackNumber": 1
         },
         {
           "id": "zaibufengkuang_02",
           "title": "聋子",
-          "fileName": "music/聋子.mp3",
-          "lyricsFile": "music/聋子.lrc",
+          "fileName": "music/zaibufengkuang/聋子.mp3",
+          "lyricsFile": "music/zaibufengkuang/聋子.lrc",
           "duration": 243,
           "trackNumber": 2
         },
         {
           "id": "zaibufengkuang_03",
           "title": "海上的月亮",
-          "fileName": "music/海上的月亮.mp3",
-          "lyricsFile": "music/海上的月亮.lrc",
+          "fileName": "music/zaibufengkuang/海上的月亮.mp3",
+          "lyricsFile": "music/zaibufengkuang/海上的月亮.lrc",
           "duration": 266,
           "trackNumber": 3
         },
         {
           "id": "zaibufengkuang_04",
           "title": "感谢你感动我",
-          "fileName": "music/感谢你感动我.mp3",
-          "lyricsFile": "music/感谢你感动我.lrc",
+          "fileName": "music/zaibufengkuang/感谢你感动我.mp3",
+          "lyricsFile": "music/zaibufengkuang/感谢你感动我.lrc",
           "duration": 219,
           "trackNumber": 4
         },
         {
           "id": "zaibufengkuang_05",
           "title": "生命线",
-          "fileName": "music/生命线.mp3",
-          "lyricsFile": "music/生命线.lrc",
+          "fileName": "music/zaibufengkuang/生命线.mp3",
+          "lyricsFile": "music/zaibufengkuang/生命线.lrc",
           "duration": 212,
           "trackNumber": 5
         },
         {
           "id": "zaibufengkuang_06",
           "title": "Hello Baby",
-          "fileName": "music/Hello Baby.mp3",
-          "lyricsFile": "music/Hello Baby.lrc",
+          "fileName": "music/zaibufengkuang/Hello Baby.mp3",
+          "lyricsFile": "music/zaibufengkuang/Hello Baby.lrc",
           "duration": 203,
           "trackNumber": 6
         },
         {
           "id": "zaibufengkuang_07",
           "title": "当时",
-          "fileName": "music/当时.mp3",
-          "lyricsFile": "music/当时.lrc",
+          "fileName": "music/zaibufengkuang/当时.mp3",
+          "lyricsFile": "music/zaibufengkuang/当时.lrc",
           "duration": 299,
           "trackNumber": 7
         },
         {
           "id": "zaibufengkuang_08",
           "title": "Say Goodbye",
-          "fileName": "music/Say Goodbye.mp3",
-          "lyricsFile": "music/Say Goodbye.lrc",
+          "fileName": "music/zaibufengkuang/Say Goodbye.mp3",
+          "lyricsFile": "music/zaibufengkuang/Say Goodbye.lrc",
           "duration": 237,
           "trackNumber": 8
         },
         {
           "id": "zaibufengkuang_09",
           "title": "禁界",
-          "fileName": "music/禁界.mp3",
-          "lyricsFile": "music/禁界.lrc",
+          "fileName": "music/zaibufengkuang/禁界.mp3",
+          "lyricsFile": "music/zaibufengkuang/禁界.lrc",
           "duration": 220,
           "trackNumber": 9
         },
         {
           "id": "zaibufengkuang_10",
           "title": "再不疯狂我们就老了",
-          "fileName": "music/再不疯狂我们就老了.mp3",
-          "lyricsFile": "music/再不疯狂我们就老了.lrc",
+          "fileName": "music/zaibufengkuang/再不疯狂我们就老了.mp3",
+          "lyricsFile": "music/zaibufengkuang/再不疯狂我们就老了.lrc",
           "duration": 248,
           "trackNumber": 10
         }
@@ -529,80 +1064,80 @@
         {
           "id": "yijiubaqi_01",
           "title": "Dance To The Music",
-          "fileName": "music/Dance To The Music.mp3",
-          "lyricsFile": "music/Dance To The Music.lrc",
+          "fileName": "music/yijiubaqi/Dance To The Music.mp3",
+          "lyricsFile": "music/yijiubaqi/Dance To The Music.lrc",
           "duration": 216,
           "trackNumber": 1
         },
         {
           "id": "yijiubaqi_02",
           "title": "女神经",
-          "fileName": "music/女神经.mp3",
-          "lyricsFile": "music/女神经.lrc",
+          "fileName": "music/yijiubaqi/女神经.mp3",
+          "lyricsFile": "music/yijiubaqi/女神经.lrc",
           "duration": 199,
           "trackNumber": 2
         },
         {
           "id": "yijiubaqi_03",
           "title": "1987我不知会遇见你",
-          "fileName": "music/1987我不知会遇见你.mp3",
-          "lyricsFile": "music/1987我不知会遇见你.lrc",
+          "fileName": "music/yijiubaqi/1987我不知会遇见你.mp3",
+          "lyricsFile": "music/yijiubaqi/1987我不知会遇见你.lrc",
           "duration": 319,
           "trackNumber": 3
         },
         {
           "id": "yijiubaqi_04",
           "title": "什么",
-          "fileName": "music/什么.mp3",
-          "lyricsFile": "music/什么.lrc",
+          "fileName": "music/yijiubaqi/什么.mp3",
+          "lyricsFile": "music/yijiubaqi/什么.lrc",
           "duration": 239,
           "trackNumber": 4
         },
         {
           "id": "yijiubaqi_05",
           "title": "超",
-          "fileName": "music/超.mp3",
-          "lyricsFile": "music/超.lrc",
+          "fileName": "music/yijiubaqi/超.mp3",
+          "lyricsFile": "music/yijiubaqi/超.lrc",
           "duration": 256,
           "trackNumber": 5
         },
         {
           "id": "yijiubaqi_06",
           "title": "冷暖",
-          "fileName": "music/冷暖.mp3",
-          "lyricsFile": "music/冷暖.lrc",
+          "fileName": "music/yijiubaqi/冷暖.mp3",
+          "lyricsFile": "music/yijiubaqi/冷暖.lrc",
           "duration": 226,
           "trackNumber": 6
         },
         {
           "id": "yijiubaqi_07",
           "title": "酷",
-          "fileName": "music/酷.mp3",
-          "lyricsFile": "music/酷.lrc",
+          "fileName": "music/yijiubaqi/酷.mp3",
+          "lyricsFile": "music/yijiubaqi/酷.lrc",
           "duration": 252,
           "trackNumber": 7
         },
         {
           "id": "yijiubaqi_08",
           "title": "Rock Heart",
-          "fileName": "music/Rock Heart.mp3",
-          "lyricsFile": "music/Rock Heart.lrc",
+          "fileName": "music/yijiubaqi/Rock Heart.mp3",
+          "lyricsFile": "music/yijiubaqi/Rock Heart.lrc",
           "duration": 284,
           "trackNumber": 8
         },
         {
           "id": "yijiubaqi_09",
           "title": "弹你的Solo",
-          "fileName": "music/弹你的Solo.mp3",
-          "lyricsFile": "music/弹你的Solo.lrc",
+          "fileName": "music/yijiubaqi/弹你的Solo.mp3",
+          "lyricsFile": "music/yijiubaqi/弹你的Solo.lrc",
           "duration": 238,
           "trackNumber": 9
         },
         {
           "id": "yijiubaqi_10",
           "title": "如初",
-          "fileName": "music/如初.mp3",
-          "lyricsFile": "music/如初.lrc",
+          "fileName": "music/yijiubaqi/如初.mp3",
+          "lyricsFile": "music/yijiubaqi/如初.lrc",
           "duration": 224,
           "trackNumber": 10
         }
@@ -617,96 +1152,96 @@
         {
           "id": "yeman_shengzhang_01",
           "title": "存在感",
-          "fileName": "music/存在感.mp3",
-          "lyricsFile": "music/存在感.lrc",
+          "fileName": "music/yeman_shengzhang/存在感.mp3",
+          "lyricsFile": "music/yeman_shengzhang/存在感.lrc",
           "duration": 186,
           "trackNumber": 1
         },
         {
           "id": "yeman_shengzhang_02",
           "title": "开放",
-          "fileName": "music/开放.mp3",
-          "lyricsFile": "music/开放.lrc",
+          "fileName": "music/yeman_shengzhang/开放.mp3",
+          "lyricsFile": "music/yeman_shengzhang/开放.lrc",
           "duration": 174,
           "trackNumber": 2
         },
         {
           "id": "yeman_shengzhang_03",
           "title": "那又怎样",
-          "fileName": "music/那又怎样.mp3",
-          "lyricsFile": "music/那又怎样.lrc",
+          "fileName": "music/yeman_shengzhang/那又怎样.mp3",
+          "lyricsFile": "music/yeman_shengzhang/那又怎样.lrc",
           "duration": 227,
           "trackNumber": 3
         },
         {
           "id": "yeman_shengzhang_04",
           "title": "若",
-          "fileName": "music/若.mp3",
-          "lyricsFile": "music/若.lrc",
+          "fileName": "music/yeman_shengzhang/若.mp3",
+          "lyricsFile": "music/yeman_shengzhang/若.lrc",
           "duration": 239,
           "trackNumber": 4
         },
         {
           "id": "yeman_shengzhang_05",
           "title": "蓝",
-          "fileName": "music/蓝.mp3",
-          "lyricsFile": "music/蓝.lrc",
+          "fileName": "music/yeman_shengzhang/蓝.mp3",
+          "lyricsFile": "music/yeman_shengzhang/蓝.lrc",
           "duration": 243,
           "trackNumber": 5
         },
         {
           "id": "yeman_shengzhang_06",
           "title": "MAGICAL SHOW",
-          "fileName": "music/MAGICAL SHOW.mp3",
-          "lyricsFile": "music/MAGICAL SHOW.lrc",
+          "fileName": "music/yeman_shengzhang/MAGICAL SHOW.mp3",
+          "lyricsFile": "music/yeman_shengzhang/MAGICAL SHOW.lrc",
           "duration": 207,
           "trackNumber": 6
         },
         {
           "id": "yeman_shengzhang_07",
           "title": "无花果",
-          "fileName": "music/无花果.mp3",
-          "lyricsFile": "music/无花果.lrc",
+          "fileName": "music/yeman_shengzhang/无花果.mp3",
+          "lyricsFile": "music/yeman_shengzhang/无花果.lrc",
           "duration": 328,
           "trackNumber": 7
         },
         {
           "id": "yeman_shengzhang_08",
           "title": "合理哀伤",
-          "fileName": "music/合理哀伤.mp3",
-          "lyricsFile": "music/合理哀伤.lrc",
+          "fileName": "music/yeman_shengzhang/合理哀伤.mp3",
+          "lyricsFile": "music/yeman_shengzhang/合理哀伤.lrc",
           "duration": 271,
           "trackNumber": 8
         },
         {
           "id": "yeman_shengzhang_09",
           "title": "夹克还我",
-          "fileName": "music/夹克还我.mp3",
-          "lyricsFile": "music/夹克还我.lrc",
+          "fileName": "music/yeman_shengzhang/夹克还我.mp3",
+          "lyricsFile": "music/yeman_shengzhang/夹克还我.lrc",
           "duration": 227,
           "trackNumber": 9
         },
         {
           "id": "yeman_shengzhang_10",
           "title": "西门少年",
-          "fileName": "music/西门少年.mp3",
-          "lyricsFile": "music/西门少年.lrc",
+          "fileName": "music/yeman_shengzhang/西门少年.mp3",
+          "lyricsFile": "music/yeman_shengzhang/西门少年.lrc",
           "duration": 273,
           "trackNumber": 10
         },
         {
           "id": "yeman_shengzhang_11",
           "title": "神回复",
-          "fileName": "music/神回复.mp3",
-          "lyricsFile": "music/神回复.lrc",
+          "fileName": "music/yeman_shengzhang/神回复.mp3",
+          "lyricsFile": "music/yeman_shengzhang/神回复.lrc",
           "duration": 270,
           "trackNumber": 11
         },
         {
           "id": "yeman_shengzhang_12",
           "title": "野蛮生长",
-          "fileName": "music/野蛮生长.mp3",
-          "lyricsFile": "music/野蛮生长.lrc",
+          "fileName": "music/yeman_shengzhang/野蛮生长.mp3",
+          "lyricsFile": "music/yeman_shengzhang/野蛮生长.lrc",
           "duration": 216,
           "trackNumber": 12
         }
@@ -721,80 +1256,80 @@
         {
           "id": "liuxing_01",
           "title": "一趟",
-          "fileName": "music/一趟.mp3",
-          "lyricsFile": "music/一趟.lrc",
+          "fileName": "music/liuxing/一趟.mp3",
+          "lyricsFile": "music/liuxing/一趟.lrc",
           "duration": 217,
           "trackNumber": 1
         },
         {
           "id": "liuxing_02",
           "title": "流行",
-          "fileName": "music/流行.mp3",
-          "lyricsFile": "music/流行.lrc",
+          "fileName": "music/liuxing/流行.mp3",
+          "lyricsFile": "music/liuxing/流行.lrc",
           "duration": 199,
           "trackNumber": 2
         },
         {
           "id": "liuxing_03",
           "title": "今天雨，可是我们在一起",
-          "fileName": "music/今天雨，可是我们在一起.mp3",
-          "lyricsFile": "music/今天雨，可是我们在一起.lrc",
+          "fileName": "music/liuxing/今天雨，可是我们在一起.mp3",
+          "lyricsFile": "music/liuxing/今天雨，可是我们在一起.lrc",
           "duration": 233,
           "trackNumber": 3
         },
         {
           "id": "liuxing_04",
           "title": "Privacy",
-          "fileName": "music/Privacy.mp3",
-          "lyricsFile": "music/Privacy.lrc",
+          "fileName": "music/liuxing/Privacy.mp3",
+          "lyricsFile": "music/liuxing/Privacy.lrc",
           "duration": 242,
           "trackNumber": 4
         },
         {
           "id": "liuxing_05",
           "title": "耳机",
-          "fileName": "music/耳机.mp3",
-          "lyricsFile": "music/耳机.lrc",
+          "fileName": "music/liuxing/耳机.mp3",
+          "lyricsFile": "music/liuxing/耳机.lrc",
           "duration": 229,
           "trackNumber": 5
         },
         {
           "id": "liuxing_06",
           "title": "口音",
-          "fileName": "music/口音.mp3",
-          "lyricsFile": "music/口音.lrc",
+          "fileName": "music/liuxing/口音.mp3",
+          "lyricsFile": "music/liuxing/口音.lrc",
           "duration": 245,
           "trackNumber": 6
         },
         {
           "id": "liuxing_07",
           "title": "Shake It",
-          "fileName": "music/Shake It.mp3",
-          "lyricsFile": "music/Shake It.lrc",
+          "fileName": "music/liuxing/Shake It.mp3",
+          "lyricsFile": "music/liuxing/Shake It.lrc",
           "duration": 210,
           "trackNumber": 7
         },
         {
           "id": "liuxing_08",
           "title": "A Pop Song",
-          "fileName": "music/A Pop Song.mp3",
-          "lyricsFile": "music/A Pop Song.lrc",
+          "fileName": "music/liuxing/A Pop Song.mp3",
+          "lyricsFile": "music/liuxing/A Pop Song.lrc",
           "duration": 204,
           "trackNumber": 8
         },
         {
           "id": "liuxing_09",
           "title": "焰火",
-          "fileName": "music/焰火.mp3",
-          "lyricsFile": "music/焰火.lrc",
+          "fileName": "music/liuxing/焰火.mp3",
+          "lyricsFile": "music/liuxing/焰火.lrc",
           "duration": 202,
           "trackNumber": 9
         },
         {
           "id": "liuxing_10",
           "title": "年轻气盛",
-          "fileName": "music/年轻气盛.mp3",
-          "lyricsFile": "music/年轻气盛.lrc",
+          "fileName": "music/liuxing/年轻气盛.mp3",
+          "lyricsFile": "music/liuxing/年轻气盛.lrc",
           "duration": 247,
           "trackNumber": 10
         }
@@ -809,80 +1344,80 @@
         {
           "id": "wa_01",
           "title": "哇",
-          "fileName": "music/哇.mp3",
-          "lyricsFile": "music/哇.lrc",
+          "fileName": "music/wa/哇.mp3",
+          "lyricsFile": "music/wa/哇.lrc",
           "duration": 223,
           "trackNumber": 1
         },
         {
           "id": "wa_02",
           "title": "你好吗我很好谢谢你呢",
-          "fileName": "music/你好吗我很好谢谢你呢.mp3",
-          "lyricsFile": "music/你好吗我很好谢谢你呢.lrc",
+          "fileName": "music/wa/你好吗我很好谢谢你呢.mp3",
+          "lyricsFile": "music/wa/你好吗我很好谢谢你呢.lrc",
           "duration": 200,
           "trackNumber": 2
         },
         {
           "id": "wa_03",
           "title": "譬如：你",
-          "fileName": "music/譬如：你.mp3",
-          "lyricsFile": "music/譬如：你.lrc",
+          "fileName": "music/wa/譬如：你.mp3",
+          "lyricsFile": "music/wa/譬如：你.lrc",
           "duration": 268,
           "trackNumber": 3
         },
         {
           "id": "wa_04",
           "title": "Hoodie",
-          "fileName": "music/Hoodie.mp3",
-          "lyricsFile": "music/Hoodie.lrc",
+          "fileName": "music/wa/Hoodie.mp3",
+          "lyricsFile": "music/wa/Hoodie.lrc",
           "duration": 187,
           "trackNumber": 4
         },
         {
           "id": "wa_05",
           "title": "给女孩",
-          "fileName": "music/给女孩.mp3",
-          "lyricsFile": "music/给女孩.lrc",
+          "fileName": "music/wa/给女孩.mp3",
+          "lyricsFile": "music/wa/给女孩.lrc",
           "duration": 170,
           "trackNumber": 5
         },
         {
           "id": "wa_06",
           "title": "一而再再而三地喜欢你",
-          "fileName": "music/一而再再而三地喜欢你.mp3",
-          "lyricsFile": "music/一而再再而三地喜欢你.lrc",
+          "fileName": "music/wa/一而再再而三地喜欢你.mp3",
+          "lyricsFile": "music/wa/一而再再而三地喜欢你.lrc",
           "duration": 200,
           "trackNumber": 6
         },
         {
           "id": "wa_07",
           "title": "莫过于此",
-          "fileName": "music/莫过于此.mp3",
-          "lyricsFile": "music/莫过于此.lrc",
+          "fileName": "music/wa/莫过于此.mp3",
+          "lyricsFile": "music/wa/莫过于此.lrc",
           "duration": 283,
           "trackNumber": 7
         },
         {
           "id": "wa_08",
           "title": "游泳",
-          "fileName": "music/游泳.mp3",
-          "lyricsFile": "music/游泳.lrc",
+          "fileName": "music/wa/游泳.mp3",
+          "lyricsFile": "music/wa/游泳.lrc",
           "duration": 227,
           "trackNumber": 8
         },
         {
           "id": "wa_09",
           "title": "您所拨打的电话号码是空号",
-          "fileName": "music/您所拨打的电话号码是空号.mp3",
-          "lyricsFile": "music/您所拨打的电话号码是空号.lrc",
+          "fileName": "music/wa/您所拨打的电话号码是空号.mp3",
+          "lyricsFile": "music/wa/您所拨打的电话号码是空号.lrc",
           "duration": 311,
           "trackNumber": 9
         },
         {
           "id": "wa_10",
           "title": "人间乐园",
-          "fileName": "music/人间乐园.mp3",
-          "lyricsFile": "music/人间乐园.lrc",
+          "fileName": "music/wa/人间乐园.mp3",
+          "lyricsFile": "music/wa/人间乐园.lrc",
           "duration": 244,
           "trackNumber": 10
         }
@@ -897,96 +1432,96 @@
         {
           "id": "zhoumoyukuai_01",
           "title": "无常",
-          "fileName": "music/无常.mp3",
-          "lyricsFile": "music/无常.lrc",
+          "fileName": "music/zhoumoyukuai/无常.mp3",
+          "lyricsFile": "music/zhoumoyukuai/无常.lrc",
           "duration": 165,
           "trackNumber": 1
         },
         {
           "id": "zhoumoyukuai_02",
           "title": "鸵鸟逃跑了",
-          "fileName": "music/鸵鸟逃跑了.mp3",
-          "lyricsFile": "music/鸵鸟逃跑了.lrc",
+          "fileName": "music/zhoumoyukuai/鸵鸟逃跑了.mp3",
+          "lyricsFile": "music/zhoumoyukuai/鸵鸟逃跑了.lrc",
           "duration": 186,
           "trackNumber": 2
         },
         {
           "id": "zhoumoyukuai_03",
           "title": "潮水凶猛",
-          "fileName": "music/潮水凶猛.mp3",
-          "lyricsFile": "music/潮水凶猛.lrc",
+          "fileName": "music/zhoumoyukuai/潮水凶猛.mp3",
+          "lyricsFile": "music/zhoumoyukuai/潮水凶猛.lrc",
           "duration": 224,
           "trackNumber": 3
         },
         {
           "id": "zhoumoyukuai_04",
           "title": "五脏六腑",
-          "fileName": "music/五脏六腑.mp3",
-          "lyricsFile": "music/五脏六腑.lrc",
+          "fileName": "music/zhoumoyukuai/五脏六腑.mp3",
+          "lyricsFile": "music/zhoumoyukuai/五脏六腑.lrc",
           "duration": 245,
           "trackNumber": 4
         },
         {
           "id": "zhoumoyukuai_05",
           "title": "隔空投送",
-          "fileName": "music/隔空投送.mp3",
-          "lyricsFile": "music/隔空投送.lrc",
+          "fileName": "music/zhoumoyukuai/隔空投送.mp3",
+          "lyricsFile": "music/zhoumoyukuai/隔空投送.lrc",
           "duration": 206,
           "trackNumber": 5
         },
         {
           "id": "zhoumoyukuai_06",
           "title": "杏",
-          "fileName": "music/杏.mp3",
-          "lyricsFile": "music/杏.lrc",
+          "fileName": "music/zhoumoyukuai/杏.mp3",
+          "lyricsFile": "music/zhoumoyukuai/杏.lrc",
           "duration": 246,
           "trackNumber": 6
         },
         {
           "id": "zhoumoyukuai_07",
           "title": "无尽海",
-          "fileName": "music/无尽海.mp3",
-          "lyricsFile": "music/无尽海.lrc",
+          "fileName": "music/zhoumoyukuai/无尽海.mp3",
+          "lyricsFile": "music/zhoumoyukuai/无尽海.lrc",
           "duration": 225,
           "trackNumber": 7
         },
         {
           "id": "zhoumoyukuai_08",
           "title": "David",
-          "fileName": "music/David.mp3",
-          "lyricsFile": "music/David.lrc",
+          "fileName": "music/zhoumoyukuai/David.mp3",
+          "lyricsFile": "music/zhoumoyukuai/David.lrc",
           "duration": 199,
           "trackNumber": 8
         },
         {
           "id": "zhoumoyukuai_09",
           "title": "1991的晚风",
-          "fileName": "music/1991的晚风.mp3",
-          "lyricsFile": "music/1991的晚风.lrc",
+          "fileName": "music/zhoumoyukuai/1991的晚风.mp3",
+          "lyricsFile": "music/zhoumoyukuai/1991的晚风.lrc",
           "duration": 234,
           "trackNumber": 9
         },
         {
           "id": "zhoumoyukuai_10",
           "title": "因为我们呼吸同样的空气",
-          "fileName": "music/因为我们呼吸同样的空气.mp3",
-          "lyricsFile": "music/因为我们呼吸同样的空气.lrc",
+          "fileName": "music/zhoumoyukuai/因为我们呼吸同样的空气.mp3",
+          "lyricsFile": "music/zhoumoyukuai/因为我们呼吸同样的空气.lrc",
           "duration": 290,
           "trackNumber": 10
         },
         {
           "id": "zhoumoyukuai_11",
           "title": "夏天的电影",
-          "fileName": "music/夏天的电影.mp3",
-          "lyricsFile": "music/夏天的电影.lrc",
+          "fileName": "music/zhoumoyukuai/夏天的电影.mp3",
+          "lyricsFile": "music/zhoumoyukuai/夏天的电影.lrc",
           "duration": 207,
           "trackNumber": 11
         },
         {
           "id": "zhoumoyukuai_12",
           "title": "周末愉快",
-          "fileName": "music/周末愉快.mp3",
-          "lyricsFile": "music/周末愉快.lrc",
+          "fileName": "music/zhoumoyukuai/周末愉快.mp3",
+          "lyricsFile": "music/zhoumoyukuai/周末愉快.lrc",
           "duration": 200,
           "trackNumber": 12
         }

@@ -1,21 +1,28 @@
 package com.ruchu.player.ui.screen.player
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +31,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -60,6 +68,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -179,53 +191,68 @@ fun PlayerScreen(
                 }
             }
 
-            // Album art or Lyrics
-            if (showLyrics && lyrics.isNotEmpty()) {
-                LyricsView(
-                    lyrics = lyrics,
-                    currentPosition = position,
-                    onSeek = { playbackManager.seekTo(it) },
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                )
-            } else {
+            // Album art area (fixed weight, never shifts)
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
                 AlbumArtWithAnimation(
                     song = currentSong,
+                    isPlaying = isPlaying,
                     modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
+                        .fillMaxSize()
                         .padding(horizontal = 24.dp)
                 )
-            }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Current lyric line preview (only when not in lyrics mode)
-            val currentLyricText = remember(lyrics, position) {
-                lyrics.indices.reversed()
-                    .find { position >= lyrics[it].timestamp }
-                    ?.let { lyrics[it].text } ?: ""
-            }
-            if (!(showLyrics && lyrics.isNotEmpty()) && currentLyricText.isNotEmpty()) {
-                AnimatedContent(
-                    targetState = currentLyricText,
-                    transitionSpec = { fadeIn(tween(400)) togetherWith fadeOut(tween(400)) },
-                    label = "lyricPreview"
-                ) { text ->
-                    Text(
-                        text = text,
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontSize = 20.sp
-                        ),
-                        color = Primary,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
+                // Lyrics overlay on top of the record
+                if (showLyrics && lyrics.isNotEmpty()) {
+                    LyricsView(
+                        lyrics = lyrics,
+                        currentPosition = position,
+                        onSeek = { playbackManager.seekTo(it) },
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color(0xFF1A1035).copy(alpha = 0.85f),
+                                        Color(0xFF0D0D1A).copy(alpha = 0.92f)
+                                    )
+                                )
+                            )
                     )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+
+                // Current lyric line preview (overlay at bottom of this box)
+                val currentLyricText = remember(lyrics, position) {
+                    lyrics.indices.reversed()
+                        .find { position >= lyrics[it].timestamp }
+                        ?.let { lyrics[it].text } ?: ""
+                }
+                if (!(showLyrics && lyrics.isNotEmpty()) && currentLyricText.isNotEmpty()) {
+                    AnimatedContent(
+                        targetState = currentLyricText,
+                        transitionSpec = { fadeIn(tween(400)) togetherWith fadeOut(tween(400)) },
+                        label = "lyricPreview",
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .fillMaxWidth()
+                            .padding(bottom = 8.dp)
+                    ) { text ->
+                        Text(
+                            text = text,
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontSize = 20.sp
+                            ),
+                            color = Primary,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -478,57 +505,197 @@ fun PlayerScreen(
 @Composable
 private fun AlbumArtWithAnimation(
     song: Song?,
+    isPlaying: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val infiniteTransition = rememberInfiniteTransition(label = "vinyl")
-    val rotation by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 8000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "rotation"
+    // Rotation: Animatable for play/pause control
+    val rotation = remember { Animatable(0f) }
+    LaunchedEffect(isPlaying, song) {
+        if (isPlaying && song != null) {
+            rotation.animateTo(
+                targetValue = rotation.value + 360f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(durationMillis = 8000, easing = LinearEasing),
+                    repeatMode = RepeatMode.Restart
+                )
+            )
+        } else {
+            rotation.stop()
+        }
+    }
+
+    // Tonearm swing: -45° = playing (needle on record), -60° = paused (off record)
+    val tonearmAngle by animateFloatAsState(
+        targetValue = if (isPlaying && song != null) -42f else -65f,
+        animationSpec = tween(durationMillis = 600, easing = FastOutSlowInEasing),
+        label = "tonearmRotation"
     )
 
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
-        // Vinyl record with thick black border
+        // Vinyl record with song switch animation
+        AnimatedContent(
+            targetState = song?.id,
+            transitionSpec = {
+                slideInHorizontally(
+                    animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing),
+                    initialOffsetX = { it }
+                ) togetherWith slideOutHorizontally(
+                    animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing),
+                    targetOffsetX = { -it }
+                )
+            },
+            label = "recordSwitch"
+        ) { songId ->
+            val currentSong = song
+            Box(
+                modifier = Modifier
+                    .aspectRatio(1f)
+                    .clip(CircleShape)
+                    .background(Color(0xFF0A0A0A))
+                    .padding(8.dp)
+                    .clip(CircleShape)
+                    .background(Color(0xFF1A1A1A))
+                    .then(
+                        if (currentSong != null && songId == currentSong.id)
+                            Modifier.rotate(rotation.value)
+                        else Modifier
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                // Grooves
+                for (i in 1..4) {
+                    Box(
+                        modifier = Modifier
+                            .size((180 - i * 28).dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFF252525))
+                    )
+                }
+
+                // Album art in center
+                if (currentSong != null && songId == currentSong.id) {
+                    AssetImage(
+                        assetPath = currentSong.albumArtwork,
+                        contentDescription = currentSong.title,
+                        modifier = Modifier
+                            .fillMaxSize(0.6f)
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+            }
+        }
+
+        // Tonearm — pivot centered above the record, pushed down slightly
         Box(
             modifier = Modifier
-                .aspectRatio(1f)
-                .clip(CircleShape)
-                .background(Color(0xFF0A0A0A))
-                .padding(8.dp)
-                .clip(CircleShape)
-                .background(Color(0xFF1A1A1A))
-                .then(
-                    if (song != null) Modifier.rotate(rotation) else Modifier
-                ),
-            contentAlignment = Alignment.Center
+                .align(Alignment.TopCenter)
+                .padding(top = 28.dp)
         ) {
-            // Grooves
-            for (i in 1..4) {
-                Box(
-                    modifier = Modifier
-                        .size((180 - i * 28).dp)
-                        .clip(CircleShape)
-                        .background(Color(0xFF252525))
-                )
-            }
+            BoxWithConstraints(
+                modifier = Modifier
+                    .graphicsLayer {
+                        rotationZ = tonearmAngle
+                        transformOrigin = TransformOrigin(0.5f, 0f)
+                    },
+                contentAlignment = Alignment.TopCenter
+            ) {
+                val canvasWidth = maxWidth * 0.35f
+                val canvasHeight = maxHeight * 0.72f
 
-            // Album art in center
-            if (song != null) {
-                AssetImage(
-                    assetPath = song.albumArtwork,
-                    contentDescription = song.title,
+                Canvas(
                     modifier = Modifier
-                        .fillMaxSize(0.6f)
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop
+                        .size(canvasWidth, canvasHeight)
+                ) {
+                val pivotX = size.width / 2f
+                val pivotY = 0f
+
+                // Dimensions
+                val armThickness = 4.dp.toPx()
+                val straightLength = size.height * 0.45f
+                val bendRadius = 14.dp.toPx()
+                val headLength = size.height * 0.08f
+                val headWidth = 8.dp.toPx()
+                val tonearmColor = Color.White.copy(alpha = 0.9f)
+
+                // --- Pivot base (single merged circle at top) ---
+                drawCircle(
+                    color = Color.White.copy(alpha = 0.95f),
+                    radius = 8.dp.toPx(),
+                    center = Offset(pivotX, pivotY)
                 )
+                drawCircle(
+                    color = Color.White.copy(alpha = 0.4f),
+                    radius = 5.dp.toPx(),
+                    center = Offset(pivotX, pivotY)
+                )
+
+                // --- Arm shaft (straight, from pivot downward) ---
+                drawLine(
+                    color = tonearmColor,
+                    start = Offset(pivotX, pivotY),
+                    end = Offset(pivotX, straightLength),
+                    strokeWidth = armThickness,
+                    cap = StrokeCap.Round
+                )
+
+                // --- Bend: 2 segments curving left toward record center ---
+                val bendMidX = pivotX - bendRadius * 0.7f
+                val bendMidY = straightLength + bendRadius * 0.7f
+                val bendEndX = pivotX - bendRadius
+                val bendEndY = straightLength + bendRadius
+
+                drawLine(
+                    color = tonearmColor,
+                    start = Offset(pivotX, straightLength),
+                    end = Offset(bendMidX, bendMidY),
+                    strokeWidth = armThickness,
+                    cap = StrokeCap.Round
+                )
+                drawLine(
+                    color = tonearmColor,
+                    start = Offset(bendMidX, bendMidY),
+                    end = Offset(bendEndX, bendEndY),
+                    strokeWidth = armThickness,
+                    cap = StrokeCap.Round
+                )
+
+                // --- Head shell (after bend, angled down-left) ---
+                val headAngle = 45f
+                val headEndX = bendEndX - headLength * kotlin.math.cos(Math.toRadians(headAngle.toDouble())).toFloat()
+                val headEndY = bendEndY + headLength * kotlin.math.sin(Math.toRadians(headAngle.toDouble())).toFloat()
+
+                drawLine(
+                    color = tonearmColor,
+                    start = Offset(bendEndX, bendEndY),
+                    end = Offset(headEndX, headEndY),
+                    strokeWidth = armThickness,
+                    cap = StrokeCap.Round
+                )
+
+                // --- Cartridge head (wider at the tip) ---
+                drawLine(
+                    color = Color.White.copy(alpha = 0.85f),
+                    start = Offset(headEndX, headEndY),
+                    end = Offset(headEndX - headWidth * 0.3f, headEndY + headWidth * 0.5f),
+                    strokeWidth = headWidth,
+                    cap = StrokeCap.Round
+                )
+
+                // --- Needle tip ---
+                val needleBaseX = headEndX - headWidth * 0.3f
+                val needleBaseY = headEndY + headWidth * 0.5f
+                drawLine(
+                    color = Color.White.copy(alpha = 0.7f),
+                    start = Offset(needleBaseX, needleBaseY),
+                    end = Offset(needleBaseX - 1.dp.toPx(), needleBaseY + 4.dp.toPx()),
+                    strokeWidth = 1.2.dp.toPx(),
+                    cap = StrokeCap.Round
+                )
+                }
             }
         }
     }

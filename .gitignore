@@ -49,6 +49,9 @@ hs_err_pid*
 # Kotlin
 .kotlin/
 
+# Music assets (local only)
+app/src/main/assets/music/
+
 # OS files
 .DS_Store
 Thumbs.db

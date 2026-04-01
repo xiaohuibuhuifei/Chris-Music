@@ -16,9 +16,19 @@ android {
         versionName = "1993.04.26"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../chris-music-release.jks")
+            storePassword = "chris2026"
+            keyAlias = "chris-music"
+            keyPassword = "chris2026"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 

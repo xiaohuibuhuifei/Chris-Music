@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -106,7 +107,7 @@ fun AlbumDetailScreen(
                         )
                         if (album != null) {
                             Text(
-                                text = "${album.year} · ${album.songs.size} 首",
+                                text = if (album.year != null) "${album.year} · ${album.songs.size} 首" else "${album.songs.size} 首",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = OnSurfaceVariant,
                                 maxLines = 1,
@@ -186,7 +187,10 @@ fun AlbumDetailScreen(
                 }
 
                 // Song list
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(bottom = if (currentSong != null) 72.dp else 16.dp)
+                ) {
                     items(uiState.songs) { song ->
                         SongListItem(
                             song = song,

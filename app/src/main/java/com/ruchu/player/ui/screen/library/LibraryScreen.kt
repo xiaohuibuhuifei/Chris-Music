@@ -1,10 +1,12 @@
 package com.ruchu.player.ui.screen.library
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,12 +33,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ruchu.player.ui.components.GlowingActionLabel
 import com.ruchu.player.ui.components.MiniPlayer
 import com.ruchu.player.ui.components.SongListItem
 import com.ruchu.player.ui.theme.Primary
+import com.ruchu.player.util.PlaybackManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,9 +51,6 @@ fun LibraryScreen(
     val uiState by viewModel.uiState.collectAsState()
     val playbackManager = viewModel.playbackManager
     val currentSong by playbackManager.currentSong.collectAsState()
-    val isPlaying by playbackManager.isPlaying.collectAsState()
-    val position by playbackManager.currentPosition.collectAsState()
-    val duration by playbackManager.duration.collectAsState()
 
     Scaffold(
         topBar = {
@@ -68,82 +68,101 @@ fun LibraryScreen(
         },
         containerColor = MaterialTheme.colorScheme.background
     ) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-        ) {
-            // Action buttons
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Button(
-                    onClick = {
-                        playbackManager.playQueue(uiState.songs, shuffle = false)
-                        onNavigateToPlayer()
-                    },
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Primary,
-                        contentColor = Color.Black
-                    )
+        Box(modifier = Modifier.fillMaxSize().padding(padding)) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                // Action buttons
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    GlowingActionLabel(
-                        text = "播放全部",
-                        icon = Icons.Default.PlayArrow,
-                        contentColor = Color.Black,
-                        glowColor = Color.White,
-                        textSize = 13.sp
-                    )
-                }
-                OutlinedButton(
-                    onClick = {
-                        playbackManager.playQueue(uiState.songs, shuffle = true)
-                        onNavigateToPlayer()
-                    },
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Primary)
-                ) {
-                    GlowingActionLabel(
-                        text = "随机播放",
-                        icon = Icons.Default.Shuffle,
-                        contentColor = Primary,
-                        glowColor = Primary,
-                        textSize = 13.sp
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            // Song list
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(uiState.songs, key = { it.id }) { song ->
-                    SongListItem(
-                        song = song,
-                        isPlaying = currentSong?.id == song.id,
+                    Button(
                         onClick = {
-                            playbackManager.playSong(song, uiState.songs)
+                            playbackManager.playQueue(uiState.songs, shuffle = false)
                             onNavigateToPlayer()
-                        }
-                    )
+                        },
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Primary,
+                            contentColor = Color.Black
+                        )
+                    ) {
+                        GlowingActionLabel(
+                            text = "播放全部",
+                            icon = Icons.Default.PlayArrow,
+                            contentColor = Color.Black,
+                            glowColor = Color.White,
+                            textSize = 13.sp
+                        )
+                    }
+                    OutlinedButton(
+                        onClick = {
+                            playbackManager.playQueue(uiState.songs, shuffle = true)
+                            onNavigateToPlayer()
+                        },
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Primary)
+                    ) {
+                        GlowingActionLabel(
+                            text = "随机播放",
+                            icon = Icons.Default.Shuffle,
+                            contentColor = Primary,
+                            glowColor = Primary,
+                            textSize = 13.sp
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                // Song list
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(bottom = if (currentSong != null) 72.dp else 16.dp)
+                ) {
+                    items(uiState.songs, key = { it.id }) { song ->
+                        SongListItem(
+                            song = song,
+                            isPlaying = currentSong?.id == song.id,
+                            onClick = {
+                                playbackManager.playSong(song, uiState.songs)
+                                onNavigateToPlayer()
+                            }
+                        )
+                    }
                 }
             }
-        }
 
-        // MiniPlayer
-        if (currentSong != null) {
-            MiniPlayer(
-                song = currentSong,
-                isPlaying = isPlaying,
-                progress = if (duration > 0) position.toFloat() / duration else 0f,
-                onTogglePlay = { playbackManager.togglePlayPause() },
+            // MiniPlayer at bottom - isolated to avoid progress updates recomposing the song list
+            LibraryMiniPlayer(
+                playbackManager = playbackManager,
                 onClick = onNavigateToPlayer,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.align(Alignment.BottomCenter)
             )
         }
+    }
+}
+
+@Composable
+private fun LibraryMiniPlayer(
+    playbackManager: PlaybackManager,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val currentSong by playbackManager.currentSong.collectAsState()
+    val isPlaying by playbackManager.isPlaying.collectAsState()
+    val position by playbackManager.currentPosition.collectAsState()
+    val duration by playbackManager.duration.collectAsState()
+
+    if (currentSong != null) {
+        MiniPlayer(
+            song = currentSong,
+            isPlaying = isPlaying,
+            progress = if (duration > 0) position.toFloat() / duration else 0f,
+            onTogglePlay = { playbackManager.togglePlayPause() },
+            onClick = onClick,
+            modifier = modifier
+        )
     }
 }

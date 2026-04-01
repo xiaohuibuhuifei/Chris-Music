@@ -11,7 +11,7 @@ data class Manifest(
 data class AlbumManifest(
     val id: String,
     val title: String,
-    val year: Int,
+    val year: Int? = null,
     val artwork: String,
     val songs: List<SongManifest>
 )
@@ -42,7 +42,7 @@ data class Song(
 data class Album(
     val id: String,
     val title: String,
-    val year: Int,
+    val year: Int?,
     val artwork: String,
     val songs: List<Song>
 )

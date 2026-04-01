@@ -59,6 +59,14 @@ class PlaybackManager private constructor() {
     private var queue: List<Song> = emptyList()
     private var queueIndex = 0
     private var isSeeking = false
+    private var pendingShuffleSongs: List<Song>? = null
+
+    private val _navigateToPlayer = MutableStateFlow(false)
+    val navigateToPlayer: StateFlow<Boolean> = _navigateToPlayer.asStateFlow()
+
+    fun clearNavigateToPlayer() {
+        _navigateToPlayer.value = false
+    }
 
     fun connect(context: Context) {
         if (mediaController != null || isConnecting) return
@@ -80,14 +88,16 @@ class PlaybackManager private constructor() {
                 if (mediaController == null) {
                     mediaController = controller
                     controller.addListener(playerListener)
-                    if (!restoreFromController(controller)) {
-                        if (!restorePendingSongIfNeeded()) {
-                            restoreFromSnapshot()
-                        }
-                    }
                     syncPlaybackUiState()
                     startProgressUpdates()
                     Log.d(TAG, "Connected to MusicService")
+
+                    // Handle pending shuffle from shortcut
+                    pendingShuffleSongs?.let { songs ->
+                        pendingShuffleSongs = null
+                        playQueue(songs, shuffle = true)
+                        _navigateToPlayer.value = true
+                    }
                 } else {
                     controller.release()
                 }
@@ -110,6 +120,22 @@ class PlaybackManager private constructor() {
         mediaController = null
         isConnecting = false
         connect(context)
+    }
+
+    fun shuffleAllFromShortcut(context: Context) {
+        scope.launch {
+            val repo = MusicRepository(context)
+            repo.loadMusic()
+            val songs = repo.getAllSongs()
+            if (songs.isEmpty()) return@launch
+
+            if (mediaController != null) {
+                playQueue(songs, shuffle = true)
+                _navigateToPlayer.value = true
+            } else {
+                pendingShuffleSongs = songs
+            }
+        }
     }
 
     fun playSong(song: Song, songQueue: List<Song> = emptyList()) {
@@ -250,90 +276,6 @@ class PlaybackManager private constructor() {
             val d = controller.duration
             if (d > 0) _duration.value = d
         }
-    }
-
-    /**
-     * Try to restore state from controller's current MediaItem.
-     * Returns true if restoration succeeded.
-     */
-    private fun restoreFromController(controller: MediaController): Boolean {
-        val mediaItem = controller.currentMediaItem ?: return false
-        val songId = mediaItem.mediaId
-        if (songId.isEmpty()) return false
-
-        val ctx = appContext ?: return false
-        val repo = MusicRepository(ctx)
-        val song = repo.getSong(songId) ?: return false
-
-        _currentSong.value = song
-        _currentPosition.value = controller.currentPosition.coerceAtLeast(0L)
-        val d = controller.duration
-        if (d > 0) _duration.value = d
-
-        Log.d(TAG, "Restored from controller: song=${song.id}, pos=${controller.currentPosition}")
-        return true
-    }
-
-    private fun restorePendingSongIfNeeded(): Boolean {
-        val song = _currentSong.value ?: return false
-        val controller = mediaController ?: return false
-        if (controller.currentMediaItem == null) {
-            playCurrentSong(song)
-            // Restore position after player prepares
-            if (lastKnownPosition > 0) {
-                val pos = lastKnownPosition
-                controller.addListener(object : Player.Listener {
-                    override fun onPlaybackStateChanged(playbackState: Int) {
-                        if (playbackState == Player.STATE_READY) {
-                            controller.seekTo(pos)
-                            lastKnownPosition = 0L
-                            controller.removeListener(this)
-                        }
-                    }
-                })
-            }
-            return true
-        }
-        return false
-    }
-
-    /**
-     * Try to restore from persisted snapshot.
-     * Used when both controller and in-memory state are empty (process death).
-     */
-    private fun restoreFromSnapshot() {
-        val snapshot = stateStore?.load() ?: return
-        val ctx = appContext ?: return
-        val repo = MusicRepository(ctx)
-
-        val song = repo.getSong(snapshot.songId) ?: return
-        val restoredQueue = snapshot.queueIds.mapNotNull { repo.getSong(it) }
-        if (restoredQueue.isEmpty()) return
-
-        sourceQueue = restoredQueue
-        queue = restoredQueue
-        queueIndex = snapshot.queueIndex.coerceIn(0, restoredQueue.lastIndex.coerceAtLeast(0))
-        _currentSong.value = song
-        _shuffleMode.value = snapshot.shuffleEnabled
-        _repeatMode.value = snapshot.repeatMode
-        lastKnownPosition = snapshot.positionMs
-
-        playCurrentSong(song)
-        if (lastKnownPosition > 0) {
-            val controller = mediaController ?: return
-            val pos = lastKnownPosition
-            controller.addListener(object : Player.Listener {
-                override fun onPlaybackStateChanged(playbackState: Int) {
-                    if (playbackState == Player.STATE_READY) {
-                        controller.seekTo(pos)
-                        lastKnownPosition = 0L
-                        controller.removeListener(this)
-                    }
-                }
-            })
-        }
-
-        Log.d(TAG, "Restored from snapshot: song=${song.id}, pos=${snapshot.positionMs}")
     }
 
     private fun playCurrentSong(song: Song) {
