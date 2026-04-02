@@ -64,8 +64,43 @@ class PlaybackManager private constructor() {
     private val _navigateToPlayer = MutableStateFlow(false)
     val navigateToPlayer: StateFlow<Boolean> = _navigateToPlayer.asStateFlow()
 
+    // Sleep timer
+    private var sleepTimerJob: Job? = null
+    private var sleepAfterCurrentSong = false
+    private val _sleepTimerRemaining = MutableStateFlow(0L)
+    val sleepTimerRemaining: StateFlow<Long> = _sleepTimerRemaining.asStateFlow()
+
     fun clearNavigateToPlayer() {
         _navigateToPlayer.value = false
+    }
+
+    fun startSleepTimer(durationMillis: Long) {
+        cancelSleepTimer()
+        _sleepTimerRemaining.value = durationMillis
+        sleepTimerJob = scope.launch {
+            var remaining = durationMillis
+            while (remaining > 0 && isActive) {
+                delay(1000)
+                remaining -= 1000
+                _sleepTimerRemaining.value = remaining.coerceAtLeast(0)
+            }
+            pause()
+            _sleepTimerRemaining.value = 0
+        }
+    }
+
+    fun startSleepAfterCurrentSong() {
+        cancelSleepTimer()
+        sleepAfterCurrentSong = true
+        // Use -1 to indicate "after current song" mode
+        _sleepTimerRemaining.value = -1L
+    }
+
+    fun cancelSleepTimer() {
+        sleepTimerJob?.cancel()
+        sleepTimerJob = null
+        sleepAfterCurrentSong = false
+        _sleepTimerRemaining.value = 0L
     }
 
     fun connect(context: Context) {
@@ -234,6 +269,11 @@ class PlaybackManager private constructor() {
             syncPlaybackUiState()
             if (playbackState != Player.STATE_ENDED) {
                 isSeeking = false
+                return
+            }
+            if (sleepAfterCurrentSong) {
+                cancelSleepTimer()
+                _isPlaying.value = false
                 return
             }
             if (isSeeking) {
