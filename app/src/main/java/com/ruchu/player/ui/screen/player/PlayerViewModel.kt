@@ -20,7 +20,6 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
     val lyrics: StateFlow<List<LyricLine>> = _lyrics.asStateFlow()
 
     init {
-        playbackManager.connect(application)
         viewModelScope.launch {
             playbackManager.currentSong.collect { song ->
                 song?.let {

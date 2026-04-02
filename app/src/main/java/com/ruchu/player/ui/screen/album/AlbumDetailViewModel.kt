@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.ruchu.player.data.model.Album
 import com.ruchu.player.data.model.Song
 import com.ruchu.player.data.repository.MusicRepository
+import com.ruchu.player.ui.model.SongListRowModel
+import com.ruchu.player.ui.model.toSongListRowModels
 import com.ruchu.player.util.PlaybackManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +16,9 @@ import kotlinx.coroutines.launch
 
 data class AlbumDetailUiState(
     val album: Album? = null,
-    val songs: List<Song> = emptyList()
+    val songs: List<Song> = emptyList(),
+    val rows: List<SongListRowModel> = emptyList(),
+    val isLoading: Boolean = false
 )
 
 class AlbumDetailViewModel(application: Application) : AndroidViewModel(application) {
@@ -25,17 +29,17 @@ class AlbumDetailViewModel(application: Application) : AndroidViewModel(applicat
     private val _uiState = MutableStateFlow(AlbumDetailUiState())
     val uiState: StateFlow<AlbumDetailUiState> = _uiState.asStateFlow()
 
-    init {
-        playbackManager.connect(application)
-    }
-
     fun loadAlbum(albumId: String) {
         viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true)
             musicRepo.loadMusic()
             val album = musicRepo.getAlbum(albumId)
+            val songs = album?.songs ?: emptyList()
             _uiState.value = AlbumDetailUiState(
                 album = album,
-                songs = album?.songs ?: emptyList()
+                songs = songs,
+                rows = songs.toSongListRowModels(),
+                isLoading = false
             )
         }
     }

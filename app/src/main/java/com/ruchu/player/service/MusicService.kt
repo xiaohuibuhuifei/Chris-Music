@@ -15,6 +15,7 @@ import androidx.media3.session.DefaultMediaNotificationProvider
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
 import com.ruchu.player.RuChuApp
+import com.ruchu.player.data.repository.PlaybackStateStore
 import com.ruchu.player.util.PlaybackManager
 
 class MusicService : MediaSessionService() {
@@ -80,11 +81,12 @@ class MusicService : MediaSessionService() {
                 .setChannelName(com.ruchu.player.R.string.app_name)
                 .build()
         )
+
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        Log.d(TAG, "onStartCommand")
+        Log.d(TAG, "onStartCommand: action=${intent?.action}")
         return START_STICKY
     }
 
@@ -109,6 +111,14 @@ class MusicService : MediaSessionService() {
         }
         mediaSession = null
         super.onDestroy()
+    }
+
+    private fun tryRestorePlayback() {
+        val store = PlaybackStateStore(this)
+        val snapshot = store.load() ?: return
+        Log.d(TAG, "tryRestorePlayback: found snapshot, songId=${snapshot.songId}, playWhenReady=${snapshot.playWhenReady}")
+        val manager = PlaybackManager.getInstance(this)
+        manager.restoreFromSnapshot(this, snapshot)
     }
 
     companion object {

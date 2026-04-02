@@ -22,28 +22,12 @@
           "trackNumber": 2
         },
         {
-          "id": "danqu_03",
-          "title": "爱你所爱",
-          "fileName": "music/danqu/爱你所爱.mp3",
-          "lyricsFile": "music/danqu/爱你所爱.lrc",
-          "duration": 201,
-          "trackNumber": 3
-        },
-        {
-          "id": "danqu_04",
-          "title": "信",
-          "fileName": "music/danqu/信.mp3",
-          "lyricsFile": "music/danqu/信.lrc",
-          "duration": 214,
-          "trackNumber": 4
-        },
-        {
           "id": "danqu_05",
           "title": "冬泳",
           "fileName": "music/danqu/冬泳.mp3",
           "lyricsFile": "music/danqu/冬泳.lrc",
           "duration": 221,
-          "trackNumber": 5
+          "trackNumber": 3
         },
         {
           "id": "danqu_06",
@@ -51,7 +35,7 @@
           "fileName": "music/danqu/春雨里.mp3",
           "lyricsFile": "music/danqu/春雨里.lrc",
           "duration": 282,
-          "trackNumber": 6
+          "trackNumber": 4
         },
         {
           "id": "danqu_07",
@@ -59,7 +43,7 @@
           "fileName": "music/danqu/清风醉.mp3",
           "lyricsFile": "music/danqu/清风醉.lrc",
           "duration": 235,
-          "trackNumber": 7
+          "trackNumber": 5
         },
         {
           "id": "danqu_08",
@@ -67,7 +51,7 @@
           "fileName": "music/danqu/大梦归离.mp3",
           "lyricsFile": "music/danqu/大梦归离.lrc",
           "duration": 281,
-          "trackNumber": 8
+          "trackNumber": 6
         },
         {
           "id": "danqu_09",
@@ -75,7 +59,7 @@
           "fileName": "music/danqu/是你.mp3",
           "lyricsFile": "music/danqu/是你.lrc",
           "duration": 320,
-          "trackNumber": 9
+          "trackNumber": 7
         },
         {
           "id": "danqu_10",
@@ -83,7 +67,7 @@
           "fileName": "music/danqu/今天有朵云爱我.mp3",
           "lyricsFile": "music/danqu/今天有朵云爱我.lrc",
           "duration": 227,
-          "trackNumber": 10
+          "trackNumber": 8
         },
         {
           "id": "danqu_11",
@@ -91,7 +75,7 @@
           "fileName": "music/danqu/人间值得.mp3",
           "lyricsFile": "music/danqu/人间值得.lrc",
           "duration": 241,
-          "trackNumber": 11
+          "trackNumber": 9
         },
         {
           "id": "danqu_12",
@@ -99,7 +83,7 @@
           "fileName": "music/danqu/乘着风.mp3",
           "lyricsFile": "music/danqu/乘着风.lrc",
           "duration": 280,
-          "trackNumber": 12
+          "trackNumber": 10
         },
         {
           "id": "danqu_13",
@@ -107,15 +91,7 @@
           "fileName": "music/danqu/给给.mp3",
           "lyricsFile": "music/danqu/给给.lrc",
           "duration": 237,
-          "trackNumber": 13
-        },
-        {
-          "id": "danqu_14",
-          "title": "送它回家",
-          "fileName": "music/danqu/送它回家.mp3",
-          "lyricsFile": "music/danqu/送它回家.lrc",
-          "duration": 231,
-          "trackNumber": 14
+          "trackNumber": 11
         },
         {
           "id": "danqu_15",
@@ -123,7 +99,7 @@
           "fileName": "music/danqu/银河中的星星.mp3",
           "lyricsFile": "music/danqu/银河中的星星.lrc",
           "duration": 279,
-          "trackNumber": 15
+          "trackNumber": 12
         },
         {
           "id": "danqu_16",
@@ -131,7 +107,7 @@
           "fileName": "music/danqu/清福.mp3",
           "lyricsFile": "music/danqu/清福.lrc",
           "duration": 316,
-          "trackNumber": 16
+          "trackNumber": 13
         },
         {
           "id": "danqu_17",
@@ -139,7 +115,7 @@
           "fileName": "music/danqu/闭嘴跳舞.mp3",
           "lyricsFile": "music/danqu/闭嘴跳舞.lrc",
           "duration": 185,
-          "trackNumber": 17
+          "trackNumber": 14
         },
         {
           "id": "danqu_18",
@@ -147,7 +123,7 @@
           "fileName": "music/danqu/软肋.mp3",
           "lyricsFile": "music/danqu/软肋.lrc",
           "duration": 257,
-          "trackNumber": 18
+          "trackNumber": 15
         },
         {
           "id": "danqu_19",
@@ -155,15 +131,7 @@
           "fileName": "music/danqu/无价之姐.mp3",
           "lyricsFile": "music/danqu/无价之姐.lrc",
           "duration": 184,
-          "trackNumber": 19
-        },
-        {
-          "id": "danqu_20",
-          "title": "国家2020",
-          "fileName": "music/danqu/国家2020.mp3",
-          "lyricsFile": "music/danqu/国家2020.lrc",
-          "duration": 265,
-          "trackNumber": 20
+          "trackNumber": 16
         },
         {
           "id": "danqu_21",
@@ -171,7 +139,7 @@
           "fileName": "music/danqu/Good Good.mp3",
           "lyricsFile": "music/danqu/Good Good.lrc",
           "duration": 203,
-          "trackNumber": 21
+          "trackNumber": 17
         },
         {
           "id": "danqu_22",
@@ -179,7 +147,7 @@
           "fileName": "music/danqu/把我最爱的文字读给你听.mp3",
           "lyricsFile": "music/danqu/把我最爱的文字读给你听.lrc",
           "duration": 257,
-          "trackNumber": 22
+          "trackNumber": 18
         },
         {
           "id": "danqu_23",
@@ -187,7 +155,7 @@
           "fileName": "music/danqu/岁岁平安.mp3",
           "lyricsFile": "music/danqu/岁岁平安.lrc",
           "duration": 209,
-          "trackNumber": 23
+          "trackNumber": 19
         },
         {
           "id": "danqu_24",
@@ -195,7 +163,7 @@
           "fileName": "music/danqu/面朝大海，春暖花开.mp3",
           "lyricsFile": "music/danqu/面朝大海，春暖花开.lrc",
           "duration": 208,
-          "trackNumber": 24
+          "trackNumber": 20
         },
         {
           "id": "danqu_25",
@@ -203,7 +171,7 @@
           "fileName": "music/danqu/你是人间的四月天.mp3",
           "lyricsFile": "music/danqu/你是人间的四月天.lrc",
           "duration": 307,
-          "trackNumber": 25
+          "trackNumber": 21
         },
         {
           "id": "danqu_26",
@@ -211,7 +179,7 @@
           "fileName": "music/danqu/如果我不是我.mp3",
           "lyricsFile": "music/danqu/如果我不是我.lrc",
           "duration": 207,
-          "trackNumber": 26
+          "trackNumber": 22
         },
         {
           "id": "danqu_27",
@@ -219,7 +187,7 @@
           "fileName": "music/danqu/咏春.mp3",
           "lyricsFile": "music/danqu/咏春.lrc",
           "duration": 251,
-          "trackNumber": 27
+          "trackNumber": 23
         },
         {
           "id": "danqu_28",
@@ -227,7 +195,7 @@
           "fileName": "music/danqu/青春颂.mp3",
           "lyricsFile": "music/danqu/青春颂.lrc",
           "duration": 302,
-          "trackNumber": 28
+          "trackNumber": 24
         },
         {
           "id": "danqu_29",
@@ -235,7 +203,7 @@
           "fileName": "music/danqu/野望.mp3",
           "lyricsFile": "music/danqu/野望.lrc",
           "duration": 258,
-          "trackNumber": 29
+          "trackNumber": 25
         },
         {
           "id": "danqu_30",
@@ -243,7 +211,7 @@
           "fileName": "music/danqu/作为怪物.mp3",
           "lyricsFile": "music/danqu/作为怪物.lrc",
           "duration": 265,
-          "trackNumber": 30
+          "trackNumber": 26
         },
         {
           "id": "danqu_31",
@@ -251,15 +219,7 @@
           "fileName": "music/danqu/木兰.mp3",
           "lyricsFile": "music/danqu/木兰.lrc",
           "duration": 201,
-          "trackNumber": 31
-        },
-        {
-          "id": "danqu_32",
-          "title": "动物世界",
-          "fileName": "music/danqu/动物世界.mp3",
-          "lyricsFile": "music/danqu/动物世界.lrc",
-          "duration": 223,
-          "trackNumber": 32
+          "trackNumber": 27
         },
         {
           "id": "danqu_33",
@@ -267,7 +227,7 @@
           "fileName": "music/danqu/你是如此难以忘记.mp3",
           "lyricsFile": "music/danqu/你是如此难以忘记.lrc",
           "duration": 195,
-          "trackNumber": 33
+          "trackNumber": 28
         },
         {
           "id": "danqu_34",
@@ -275,7 +235,7 @@
           "fileName": "music/danqu/If You Were The Only Girl In The World.mp3",
           "lyricsFile": "music/danqu/If You Were The Only Girl In The World.lrc",
           "duration": 163,
-          "trackNumber": 34
+          "trackNumber": 29
         },
         {
           "id": "danqu_35",
@@ -283,7 +243,7 @@
           "fileName": "music/danqu/丝萝.mp3",
           "lyricsFile": "music/danqu/丝萝.lrc",
           "duration": 238,
-          "trackNumber": 35
+          "trackNumber": 30
         },
         {
           "id": "danqu_36",
@@ -291,7 +251,7 @@
           "fileName": "music/danqu/山河故人.mp3",
           "lyricsFile": "music/danqu/山河故人.lrc",
           "duration": 212,
-          "trackNumber": 36
+          "trackNumber": 31
         },
         {
           "id": "danqu_37",
@@ -299,7 +259,7 @@
           "fileName": "music/danqu/唐人街.mp3",
           "lyricsFile": "music/danqu/唐人街.lrc",
           "duration": 271,
-          "trackNumber": 37
+          "trackNumber": 32
         },
         {
           "id": "danqu_38",
@@ -307,7 +267,7 @@
           "fileName": "music/danqu/爱有引力.mp3",
           "lyricsFile": "music/danqu/爱有引力.lrc",
           "duration": 221,
-          "trackNumber": 38
+          "trackNumber": 33
         },
         {
           "id": "danqu_39",
@@ -315,7 +275,7 @@
           "fileName": "music/danqu/混蛋，我想你.mp3",
           "lyricsFile": "music/danqu/混蛋，我想你.lrc",
           "duration": 179,
-          "trackNumber": 39
+          "trackNumber": 34
         },
         {
           "id": "danqu_40",
@@ -323,7 +283,7 @@
           "fileName": "music/danqu/为爱感动.mp3",
           "lyricsFile": "music/danqu/为爱感动.lrc",
           "duration": 191,
-          "trackNumber": 40
+          "trackNumber": 35
         },
         {
           "id": "danqu_41",
@@ -331,7 +291,7 @@
           "fileName": "music/danqu/刀锋偏冷.mp3",
           "lyricsFile": "music/danqu/刀锋偏冷.lrc",
           "duration": 224,
-          "trackNumber": 41
+          "trackNumber": 36
         },
         {
           "id": "danqu_42",
@@ -339,7 +299,7 @@
           "fileName": "music/danqu/走进你的梦.mp3",
           "lyricsFile": "music/danqu/走进你的梦.lrc",
           "duration": 173,
-          "trackNumber": 42
+          "trackNumber": 37
         },
         {
           "id": "danqu_43",
@@ -347,7 +307,7 @@
           "fileName": "music/danqu/珍惜.mp3",
           "lyricsFile": "music/danqu/珍惜.lrc",
           "duration": 300,
-          "trackNumber": 43
+          "trackNumber": 38
         },
         {
           "id": "danqu_44",
@@ -355,7 +315,7 @@
           "fileName": "music/danqu/纯真年代.mp3",
           "lyricsFile": "music/danqu/纯真年代.lrc",
           "duration": 190,
-          "trackNumber": 44
+          "trackNumber": 39
         },
         {
           "id": "danqu_45",
@@ -363,7 +323,7 @@
           "fileName": "music/danqu/序幕.mp3",
           "lyricsFile": "music/danqu/序幕.lrc",
           "duration": 190,
-          "trackNumber": 45
+          "trackNumber": 40
         },
         {
           "id": "danqu_46",
@@ -371,7 +331,7 @@
           "fileName": "music/danqu/小翅膀.mp3",
           "lyricsFile": "music/danqu/小翅膀.lrc",
           "duration": 227,
-          "trackNumber": 46
+          "trackNumber": 41
         },
         {
           "id": "danqu_47",
@@ -379,7 +339,7 @@
           "fileName": "music/danqu/天涯共此时.mp3",
           "lyricsFile": "music/danqu/天涯共此时.lrc",
           "duration": 290,
-          "trackNumber": 47
+          "trackNumber": 42
         },
         {
           "id": "danqu_48",
@@ -387,7 +347,7 @@
           "fileName": "music/danqu/我在这里 (Live).mp3",
           "lyricsFile": "music/danqu/我在这里 (Live).lrc",
           "duration": 190,
-          "trackNumber": 48
+          "trackNumber": 43
         },
         {
           "id": "danqu_49",
@@ -395,7 +355,7 @@
           "fileName": "music/danqu/Why Me.mp3",
           "lyricsFile": "music/danqu/Why Me.lrc",
           "duration": 205,
-          "trackNumber": 49
+          "trackNumber": 44
         },
         {
           "id": "danqu_50",
@@ -403,7 +363,7 @@
           "fileName": "music/danqu/粉末.mp3",
           "lyricsFile": "music/danqu/粉末.lrc",
           "duration": 204,
-          "trackNumber": 50
+          "trackNumber": 45
         },
         {
           "id": "danqu_51",
@@ -411,7 +371,7 @@
           "fileName": "music/danqu/湘江的笔画.mp3",
           "lyricsFile": "music/danqu/湘江的笔画.lrc",
           "duration": 262,
-          "trackNumber": 51
+          "trackNumber": 46
         },
         {
           "id": "danqu_52",
@@ -419,7 +379,7 @@
           "fileName": "music/danqu/AOAEO出发.mp3",
           "lyricsFile": "music/danqu/AOAEO出发.lrc",
           "duration": 190,
-          "trackNumber": 52
+          "trackNumber": 47
         },
         {
           "id": "danqu_53",
@@ -427,15 +387,7 @@
           "fileName": "music/danqu/蜀绣.mp3",
           "lyricsFile": "music/danqu/蜀绣.lrc",
           "duration": 281,
-          "trackNumber": 53
-        },
-        {
-          "id": "danqu_54",
-          "title": "用爱点亮希望",
-          "fileName": "music/danqu/用爱点亮希望.mp3",
-          "lyricsFile": "music/danqu/用爱点亮希望.lrc",
-          "duration": 249,
-          "trackNumber": 54
+          "trackNumber": 48
         },
         {
           "id": "danqu_55",
@@ -443,7 +395,7 @@
           "fileName": "music/danqu/倾国倾城.mp3",
           "lyricsFile": "music/danqu/倾国倾城.lrc",
           "duration": 269,
-          "trackNumber": 55
+          "trackNumber": 49
         },
         {
           "id": "danqu_56",
@@ -451,7 +403,7 @@
           "fileName": "music/danqu/唱得响亮.mp3",
           "lyricsFile": "music/danqu/唱得响亮.lrc",
           "duration": 218,
-          "trackNumber": 56
+          "trackNumber": 50
         },
         {
           "id": "danqu_57",
@@ -459,7 +411,7 @@
           "fileName": "music/danqu/Give Me Five.mp3",
           "lyricsFile": "music/danqu/Give Me Five.lrc",
           "duration": 237,
-          "trackNumber": 57
+          "trackNumber": 51
         },
         {
           "id": "danqu_58",
@@ -467,7 +419,7 @@
           "fileName": "music/danqu/甜蜜的 我爱你.mp3",
           "lyricsFile": "music/danqu/甜蜜的 我爱你.lrc",
           "duration": 200,
-          "trackNumber": 58
+          "trackNumber": 52
         },
         {
           "id": "danqu_59",
@@ -475,7 +427,7 @@
           "fileName": "music/danqu/想唱就唱.mp3",
           "lyricsFile": "music/danqu/想唱就唱.lrc",
           "duration": 236,
-          "trackNumber": 59
+          "trackNumber": 53
         }
       ]
     },

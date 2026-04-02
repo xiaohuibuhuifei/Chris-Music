@@ -2,7 +2,6 @@ package com.ruchu.player.ui.components
 
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +22,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -53,10 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ruchu.player.data.model.Album
 import com.ruchu.player.data.model.Song
-import com.ruchu.player.ui.theme.OnSurfaceVariant
-import com.ruchu.player.ui.theme.Primary
-import com.ruchu.player.ui.theme.Surface
-import com.ruchu.player.util.formatDuration
+import com.ruchu.player.ui.theme.RuChuTheme
 import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -107,13 +105,13 @@ fun AssetImage(
         )
     } else {
         Box(
-            modifier = modifier.background(Surface),
+            modifier = modifier.background(MaterialTheme.colorScheme.surfaceVariant),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = contentDescription ?: "",
                 style = MaterialTheme.typography.bodySmall,
-                color = OnSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
@@ -125,6 +123,8 @@ fun MiniPlayer(
     isPlaying: Boolean,
     progress: Float,
     onTogglePlay: () -> Unit,
+    onPrevious: () -> Unit,
+    onNext: () -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -133,7 +133,7 @@ fun MiniPlayer(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(Surface)
+            .background(MaterialTheme.colorScheme.surface)
             .clickable(onClick = onClick)
     ) {
         AssetImage(
@@ -150,26 +150,26 @@ fun MiniPlayer(
                 .fillMaxWidth()
                 .height(2.dp)
                 .align(Alignment.TopCenter),
-            color = Primary,
-            trackColor = OnSurfaceVariant.copy(alpha = 0.2f)
+            color = MaterialTheme.colorScheme.primary,
+            trackColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
         )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                .padding(horizontal = 12.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AssetImage(
                 assetPath = song.albumArtwork,
                 contentDescription = song.title,
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(48.dp)
                     .clip(RoundedCornerShape(4.dp)),
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(10.dp))
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
@@ -181,17 +181,34 @@ fun MiniPlayer(
                 Text(
                     text = song.albumTitle,
                     style = MaterialTheme.typography.bodySmall,
-                    color = OnSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
             }
 
-            IconButton(onClick = onTogglePlay) {
+            IconButton(onClick = onPrevious, modifier = Modifier.size(44.dp)) {
+                Icon(
+                    Icons.Default.SkipPrevious,
+                    contentDescription = "上一曲",
+                    modifier = Modifier.size(26.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+            IconButton(onClick = onTogglePlay, modifier = Modifier.size(44.dp)) {
                 Icon(
                     if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
                     contentDescription = if (isPlaying) "暂停" else "播放",
-                    tint = Primary
+                    modifier = Modifier.size(26.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+            IconButton(onClick = onNext, modifier = Modifier.size(44.dp)) {
+                Icon(
+                    Icons.Default.SkipNext,
+                    contentDescription = "下一曲",
+                    modifier = Modifier.size(26.dp),
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
@@ -255,8 +272,8 @@ fun QuoteCard(
             .background(
                 brush = androidx.compose.ui.graphics.Brush.linearGradient(
                     colors = listOf(
-                        com.ruchu.player.ui.theme.GradientStart,
-                        com.ruchu.player.ui.theme.GradientEnd
+                        RuChuTheme.extended.quoteGradientStart,
+                        RuChuTheme.extended.quoteGradientEnd
                     )
                 )
             )
@@ -265,11 +282,12 @@ fun QuoteCard(
     ) {
         Column {
             Text(
-                text = "\u201C$quoteText\u201D",
+                text = quoteText,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontFamily = com.ruchu.player.ui.theme.CreativeFont
                 ),
-                color = androidx.compose.ui.graphics.Color.White
+                color = MaterialTheme.colorScheme.onBackground,
+                minLines = 2
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -277,7 +295,7 @@ fun QuoteCard(
                 style = MaterialTheme.typography.bodySmall.copy(
                     textAlign = TextAlign.End
                 ),
-                color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.7f),
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -312,45 +330,7 @@ fun AlbumCard(
         Text(
             text = album.year?.toString() ?: "${album.songs.size}首",
             style = MaterialTheme.typography.bodySmall,
-            color = OnSurfaceVariant
-        )
-    }
-}
-
-@Composable
-fun SongListItem(
-    song: Song,
-    isPlaying: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = song.title,
-            style = MaterialTheme.typography.bodyLarge,
-            maxLines = 1,
-            color = if (isPlaying) Primary else MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .weight(1f)
-                .then(
-                    if (isPlaying) Modifier.basicMarquee() else Modifier
-                )
-        )
-
-        Spacer(modifier = Modifier.width(12.dp))
-
-        Text(
-            text = formatDuration(song.duration),
-            style = MaterialTheme.typography.bodyMedium,
-            color = OnSurfaceVariant,
-            textAlign = TextAlign.End,
-            modifier = Modifier.width(48.dp)
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }

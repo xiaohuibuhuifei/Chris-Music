@@ -110,15 +110,13 @@ class PlaybackManager private constructor() {
     }
 
     fun reconnectIfNeeded(context: Context) {
+        if (isConnecting) return
+
         val controller = mediaController
-        if (controller != null && controller.playbackState != Player.STATE_IDLE) {
+        if (controller != null) {
             return
         }
-        Log.d(TAG, "Controller stale or null, reconnecting...")
-        controller?.removeListener(playerListener)
-        controller?.release()
-        mediaController = null
-        isConnecting = false
+        Log.d(TAG, "Controller missing, reconnecting...")
         connect(context)
     }
 
@@ -275,6 +273,7 @@ class PlaybackManager private constructor() {
             _currentPosition.value = controller.currentPosition.coerceAtLeast(0L)
             val d = controller.duration
             if (d > 0) _duration.value = d
+            persistSnapshot()
         }
     }
 
@@ -284,15 +283,18 @@ class PlaybackManager private constructor() {
         _duration.value = song.duration.toLong() * 1000
 
         val uri = Uri.parse("asset:///${song.fileName}")
+        val metadataBuilder = MediaMetadata.Builder()
+            .setTitle(song.title)
+            .setArtist(song.albumTitle)
+
+        if (song.albumArtwork.isNotEmpty()) {
+            metadataBuilder.setArtworkUri(Uri.parse("asset:///${song.albumArtwork}"))
+        }
+
         val mediaItem = MediaItem.Builder()
             .setUri(uri)
             .setMediaId(song.id)
-            .setMediaMetadata(
-                MediaMetadata.Builder()
-                    .setTitle(song.title)
-                    .setArtist(song.albumTitle)
-                    .build()
-            )
+            .setMediaMetadata(metadataBuilder.build())
             .build()
 
         mediaController?.apply {
@@ -387,6 +389,70 @@ class PlaybackManager private constructor() {
 
     fun getQueue(): List<Song> = queue
     fun getQueueIndex(): Int = queueIndex
+
+    /**
+     * Restore playback state after service restart (START_STICKY).
+     * Called from MusicService.onCreate() when a snapshot exists.
+     */
+    fun restoreFromSnapshot(context: Context, snapshot: PlaybackSnapshot) {
+        if (_currentSong.value != null) return  // already playing
+
+        appContext = context.applicationContext
+        stateStore = PlaybackStateStore(context.applicationContext)
+
+        scope.launch {
+            val repo = MusicRepository(context.applicationContext)
+            repo.loadMusic()
+            val allSongs = repo.getAllSongs()
+            if (allSongs.isEmpty()) return@launch
+
+            // Rebuild queue from saved song IDs
+            val songMap = allSongs.associateBy { it.id }
+            val restoredQueue = snapshot.queueIds.mapNotNull { songMap[it] }
+            if (restoredQueue.isEmpty()) return@launch
+
+            val targetSong = songMap[snapshot.songId] ?: return@launch
+
+            sourceQueue = restoredQueue
+            queue = restoredQueue
+            queueIndex = snapshot.queueIndex.coerceIn(restoredQueue.indices)
+            _shuffleMode.value = snapshot.shuffleEnabled
+            _repeatMode.value = snapshot.repeatMode
+            _currentSong.value = targetSong
+            _currentPosition.value = snapshot.positionMs
+            _duration.value = targetSong.duration.toLong() * 1000
+
+            // Connect to service and play
+            connect(context)
+            // Wait for controller to connect, then seek to saved position
+            scope.launch {
+                var attempts = 0
+                while (mediaController == null && attempts < 20) {
+                    delay(100)
+                    attempts++
+                }
+                mediaController?.let { controller ->
+                    val uri = Uri.parse("asset:///${targetSong.fileName}")
+                    val metadataBuilder = MediaMetadata.Builder()
+                        .setTitle(targetSong.title)
+                        .setArtist(targetSong.albumTitle)
+                    if (targetSong.albumArtwork.isNotEmpty()) {
+                        metadataBuilder.setArtworkUri(Uri.parse("asset:///${targetSong.albumArtwork}"))
+                    }
+                    val mediaItem = MediaItem.Builder()
+                        .setUri(uri)
+                        .setMediaId(targetSong.id)
+                        .setMediaMetadata(metadataBuilder.build())
+                        .build()
+                    controller.setMediaItem(mediaItem)
+                    controller.prepare()
+                    controller.seekTo(snapshot.positionMs)
+                    // Don't auto-play: restore state only, user decides when to resume
+                    Log.d(TAG, "restoreFromSnapshot: restored ${targetSong.title} at ${snapshot.positionMs}ms")
+                }
+            }
+        }
+    }
 
     private fun persistSnapshot() {
         val song = _currentSong.value ?: return

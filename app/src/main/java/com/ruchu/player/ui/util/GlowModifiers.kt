@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.ruchu.player.ui.theme.Primary
+import com.ruchu.player.ui.theme.DarkPrimary
 
 private data class GlowStyle(
     val blur: Dp,
@@ -162,7 +162,7 @@ private fun Modifier.glowPressable(
 @Composable
 fun Modifier.glowClick(
     onClick: () -> Unit,
-    glowColor: Color = Primary,
+    glowColor: Color = DarkPrimary,
     glowRadius: Dp = 18.dp,
     shape: Shape = CircleShape
 ): Modifier = glowPressable(
@@ -190,7 +190,7 @@ fun Modifier.glowClick(
 @Composable
 fun Modifier.glowClickSubtle(
     onClick: () -> Unit,
-    glowColor: Color = Primary,
+    glowColor: Color = DarkPrimary,
     shape: Shape = CircleShape
 ): Modifier = glowPressable(
     onClick = onClick,
@@ -215,7 +215,7 @@ fun Modifier.glowClickSubtle(
  * 非交互式轻泛光，用在首页/列表页这类安静界面。
  */
 fun Modifier.buttonGlow(
-    glowColor: Color = Primary,
+    glowColor: Color = DarkPrimary,
     blurRadius: Float = 14f,
     shape: Shape = CircleShape
 ): Modifier = this.softGlow(
@@ -229,7 +229,7 @@ fun Modifier.buttonGlow(
 )
 
 fun Modifier.contentGlow(
-    glowColor: Color = Primary,
+    glowColor: Color = DarkPrimary,
     blurRadius: Float = 10f,
     alpha: Float = 0.2f,
     shape: Shape = CircleShape

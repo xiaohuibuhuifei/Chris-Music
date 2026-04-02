@@ -17,6 +17,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        PlaybackManager.getInstance(this).connect(this)
 
         setContent {
             RuChuTheme {

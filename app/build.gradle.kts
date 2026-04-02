@@ -51,6 +51,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+    composeCompiler {
+        stabilityConfigurationFiles.add(layout.projectDirectory.file("compose_compiler_config.conf"))
+    }
 }
 
 dependencies {
@@ -74,9 +78,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.5")
 
     // Media3 (ExoPlayer)
-    implementation("androidx.media3:media3-exoplayer:1.5.1")
-    implementation("androidx.media3:media3-session:1.5.1")
-    implementation("androidx.media3:media3-ui:1.5.1")
+    implementation("androidx.media3:media3-exoplayer:1.8.0")
+    implementation("androidx.media3:media3-session:1.8.0")
+    implementation("androidx.media3:media3-ui:1.8.0")
 
     // Gson
     implementation("com.google.code.gson:gson:2.11.0")

@@ -52,6 +52,8 @@ hs_err_pid*
 # Music assets (local only)
 app/src/main/assets/music/
 
+.playwright-mcp
+
 # OS files
 .DS_Store
 Thumbs.db

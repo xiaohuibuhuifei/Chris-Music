@@ -73,7 +73,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
@@ -84,8 +83,7 @@ import androidx.compose.ui.unit.sp
 import com.ruchu.player.data.model.LyricLine
 import com.ruchu.player.data.model.Song
 import com.ruchu.player.ui.components.AssetImage
-import com.ruchu.player.ui.theme.OnSurfaceVariant
-import com.ruchu.player.ui.theme.Primary
+import com.ruchu.player.ui.theme.RuChuTheme
 import com.ruchu.player.ui.util.glowClick
 import com.ruchu.player.ui.util.glowClickSubtle
 import com.ruchu.player.util.formatDuration
@@ -116,14 +114,7 @@ fun PlayerScreen(
                     while (true) awaitPointerEvent()
                 }
             }
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF1A1035),
-                        Color(0xFF0D0D1A)
-                    )
-                )
-            )
+            .background(MaterialTheme.colorScheme.background)
             .navigationBarsPadding()
     ) {
         // Faint album art background
@@ -166,14 +157,14 @@ fun PlayerScreen(
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "返回",
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         text = currentSong?.title ?: "未在播放",
                         style = MaterialTheme.typography.titleLarge,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onBackground,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         textAlign = TextAlign.Center,
@@ -182,7 +173,7 @@ fun PlayerScreen(
                     Text(
                         text = currentSong?.albumTitle ?: "",
                         style = MaterialTheme.typography.bodySmall,
-                        color = OnSurfaceVariant,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         textAlign = TextAlign.Center,
@@ -213,14 +204,7 @@ fun PlayerScreen(
                         onSeek = { playbackManager.seekTo(it) },
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(
-                                Brush.verticalGradient(
-                                    colors = listOf(
-                                        Color(0xFF1A1035).copy(alpha = 0.85f),
-                                        Color(0xFF0D0D1A).copy(alpha = 0.92f)
-                                    )
-                                )
-                            )
+                            .background(MaterialTheme.colorScheme.background.copy(alpha = 0.92f))
                     )
                 }
 
@@ -245,7 +229,7 @@ fun PlayerScreen(
                             style = MaterialTheme.typography.titleLarge.copy(
                                 fontSize = 20.sp
                             ),
-                            color = Primary,
+                            color = MaterialTheme.colorScheme.primary,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                             textAlign = TextAlign.Center,
@@ -289,19 +273,19 @@ fun PlayerScreen(
                             Box(
                                 modifier = Modifier
                                     .size(20.dp * breatheScale)
-                                    .background(Color.White.copy(alpha = 0.15f), CircleShape)
+                                    .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15f), CircleShape)
                             )
                             // Middle glow
                             Box(
                                 modifier = Modifier
                                     .size(14.dp)
-                                    .background(Color.White.copy(alpha = 0.2f), CircleShape)
+                                    .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f), CircleShape)
                             )
                             // Solid center
                             Box(
                                 modifier = Modifier
                                     .size(10.dp)
-                                    .background(Color.White, CircleShape)
+                                    .background(MaterialTheme.colorScheme.onBackground, CircleShape)
                             )
                         }
                     },
@@ -317,14 +301,14 @@ fun PlayerScreen(
                                     .fillMaxWidth()
                                     .height(4.dp)
                                     .clip(RoundedCornerShape(2.dp))
-                                    .background(Color.White.copy(alpha = 0.12f))
+                                    .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.12f))
                             )
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth(fraction)
                                     .height(4.dp)
                                     .clip(RoundedCornerShape(2.dp))
-                                    .background(Primary)
+                                    .background(MaterialTheme.colorScheme.primary)
                             )
                         }
                     },
@@ -341,12 +325,12 @@ fun PlayerScreen(
                             seekingValue?.let { (it * duration).toLong() } ?: position
                         ),
                         style = MaterialTheme.typography.labelSmall,
-                        color = OnSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
                         text = formatDuration(duration),
                         style = MaterialTheme.typography.labelSmall,
-                        color = OnSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -365,14 +349,14 @@ fun PlayerScreen(
                         .size(40.dp)
                         .glowClickSubtle(
                             onClick = { playbackManager.toggleShuffle() },
-                            glowColor = if (shuffleMode) Primary else OnSurfaceVariant
+                            glowColor = if (shuffleMode) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                         ),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         Icons.Default.Shuffle,
                         contentDescription = "随机",
-                        tint = if (shuffleMode) Primary else OnSurfaceVariant,
+                        tint = if (shuffleMode) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(22.dp)
                     )
                 }
@@ -383,7 +367,7 @@ fun PlayerScreen(
                         .size(48.dp)
                         .glowClickSubtle(
                             onClick = { playbackManager.previous() },
-                            glowColor = Color.White
+                            glowColor = MaterialTheme.colorScheme.onBackground
                         ),
                     contentAlignment = Alignment.Center
                 ) {
@@ -391,29 +375,29 @@ fun PlayerScreen(
                         Icons.Default.SkipPrevious,
                         contentDescription = "上一首",
                         modifier = Modifier.size(32.dp),
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
 
                 // Play/Pause - large center button with strong glow
                 Box(
                     modifier = Modifier
-                        .size(64.dp)
+                        .size(83.dp)
                         .clip(CircleShape)
-                        .background(Primary)
-                        .border(2.dp, Color.White.copy(alpha = 0.9f), CircleShape)
+                        .background(MaterialTheme.colorScheme.primary)
+                        .border(2.dp, MaterialTheme.colorScheme.onBackground.copy(alpha = 0.9f), CircleShape)
                         .glowClick(
                             onClick = { playbackManager.togglePlayPause() },
-                            glowColor = Primary,
-                            glowRadius = 20.dp
+                            glowColor = MaterialTheme.colorScheme.primary,
+                            glowRadius = 26.dp
                         ),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
                         contentDescription = if (isPlaying) "暂停" else "播放",
-                        tint = Color.Black,
-                        modifier = Modifier.size(36.dp)
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(47.dp)
                     )
                 }
 
@@ -423,7 +407,7 @@ fun PlayerScreen(
                         .size(48.dp)
                         .glowClickSubtle(
                             onClick = { playbackManager.next() },
-                            glowColor = Color.White
+                            glowColor = MaterialTheme.colorScheme.onBackground
                         ),
                     contentAlignment = Alignment.Center
                 ) {
@@ -431,7 +415,7 @@ fun PlayerScreen(
                         Icons.Default.SkipNext,
                         contentDescription = "下一首",
                         modifier = Modifier.size(32.dp),
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
 
@@ -441,7 +425,7 @@ fun PlayerScreen(
                         .size(40.dp)
                         .glowClickSubtle(
                             onClick = { playbackManager.cycleRepeatMode() },
-                            glowColor = if (repeatMode > 0) Primary else OnSurfaceVariant
+                            glowColor = if (repeatMode > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                         ),
                     contentAlignment = Alignment.Center
                 ) {
@@ -452,7 +436,7 @@ fun PlayerScreen(
                             else -> Icons.Default.Repeat
                         },
                         contentDescription = "循环",
-                        tint = if (repeatMode > 0) Primary else OnSurfaceVariant,
+                        tint = if (repeatMode > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(22.dp)
                     )
                 }
@@ -472,11 +456,11 @@ fun PlayerScreen(
                     modifier = Modifier
                         .clip(RoundedCornerShape(20.dp))
                         .background(
-                            if (showLyrics) Primary.copy(alpha = 0.2f) else Color(0xFF2A2A2A)
+                            if (showLyrics) MaterialTheme.colorScheme.primary.copy(alpha = 0.2f) else RuChuTheme.extended.lyricsOverlay
                         )
                         .glowClickSubtle(
                             onClick = { showLyrics = !showLyrics },
-                            glowColor = if (showLyrics) Primary else OnSurfaceVariant,
+                            glowColor = if (showLyrics) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                             shape = RoundedCornerShape(20.dp)
                         )
                         .padding(horizontal = 20.dp, vertical = 8.dp),
@@ -486,13 +470,13 @@ fun PlayerScreen(
                         Icon(
                             Icons.Default.Lyrics,
                             contentDescription = null,
-                            tint = if (showLyrics) Primary else OnSurfaceVariant,
+                            tint = if (showLyrics) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = "歌词",
-                            color = if (showLyrics) Primary else OnSurfaceVariant,
+                            color = if (showLyrics) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.labelMedium
                         )
                     }
@@ -554,10 +538,10 @@ private fun AlbumArtWithAnimation(
                 modifier = Modifier
                     .aspectRatio(1f)
                     .clip(CircleShape)
-                    .background(Color(0xFF0A0A0A))
+                    .background(RuChuTheme.extended.vinylOuter)
                     .padding(8.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFF1A1A1A))
+                    .background(RuChuTheme.extended.vinylInner)
                     .then(
                         if (currentSong != null && songId == currentSong.id)
                             Modifier.rotate(rotation.value)
@@ -571,7 +555,7 @@ private fun AlbumArtWithAnimation(
                         modifier = Modifier
                             .size((180 - i * 28).dp)
                             .clip(CircleShape)
-                            .background(Color(0xFF252525))
+                            .background(RuChuTheme.extended.vinylGroove)
                     )
                 }
 
@@ -606,6 +590,8 @@ private fun AlbumArtWithAnimation(
                 val canvasWidth = maxWidth * 0.35f
                 val canvasHeight = maxHeight * 0.72f
 
+                val onBackgroundColor = MaterialTheme.colorScheme.onBackground
+
                 Canvas(
                     modifier = Modifier
                         .size(canvasWidth, canvasHeight)
@@ -619,16 +605,16 @@ private fun AlbumArtWithAnimation(
                 val bendRadius = 14.dp.toPx()
                 val headLength = size.height * 0.08f
                 val headWidth = 8.dp.toPx()
-                val tonearmColor = Color.White.copy(alpha = 0.9f)
+                val tonearmColor = onBackgroundColor.copy(alpha = 0.9f)
 
                 // --- Pivot base (single merged circle at top) ---
                 drawCircle(
-                    color = Color.White.copy(alpha = 0.95f),
+                    color = onBackgroundColor.copy(alpha = 0.95f),
                     radius = 8.dp.toPx(),
                     center = Offset(pivotX, pivotY)
                 )
                 drawCircle(
-                    color = Color.White.copy(alpha = 0.4f),
+                    color = onBackgroundColor.copy(alpha = 0.4f),
                     radius = 5.dp.toPx(),
                     center = Offset(pivotX, pivotY)
                 )
@@ -678,7 +664,7 @@ private fun AlbumArtWithAnimation(
 
                 // --- Cartridge head (wider at the tip) ---
                 drawLine(
-                    color = Color.White.copy(alpha = 0.85f),
+                    color = onBackgroundColor.copy(alpha = 0.85f),
                     start = Offset(headEndX, headEndY),
                     end = Offset(headEndX - headWidth * 0.3f, headEndY + headWidth * 0.5f),
                     strokeWidth = headWidth,
@@ -689,7 +675,7 @@ private fun AlbumArtWithAnimation(
                 val needleBaseX = headEndX - headWidth * 0.3f
                 val needleBaseY = headEndY + headWidth * 0.5f
                 drawLine(
-                    color = Color.White.copy(alpha = 0.7f),
+                    color = onBackgroundColor.copy(alpha = 0.7f),
                     start = Offset(needleBaseX, needleBaseY),
                     end = Offset(needleBaseX - 1.dp.toPx(), needleBaseY + 4.dp.toPx()),
                     strokeWidth = 1.2.dp.toPx(),
@@ -747,7 +733,7 @@ private fun LyricsView(
                 } else {
                     MaterialTheme.typography.bodyLarge
                 },
-                color = if (isCurrentLine) Primary else OnSurfaceVariant,
+                color = if (isCurrentLine) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()

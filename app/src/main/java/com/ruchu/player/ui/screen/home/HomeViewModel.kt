@@ -28,7 +28,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     init {
-        playbackManager.connect(application)
         viewModelScope.launch {
             musicRepo.loadMusic()
             _uiState.value = HomeUiState(
@@ -50,5 +49,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         if (songs.isNotEmpty()) {
             playbackManager.playQueue(songs, shuffle = true)
         }
+    }
+
+    fun refreshQuote() {
+        _uiState.value = _uiState.value.copy(quote = quoteRepo.getRandomQuote())
     }
 }
