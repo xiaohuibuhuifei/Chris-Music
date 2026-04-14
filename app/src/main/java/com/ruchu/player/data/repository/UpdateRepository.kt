@@ -24,11 +24,20 @@ class UpdateRepository(private val context: Context) {
         private const val GITHUB_REPO = "Chris-Music"
         private const val API_URL =
             "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/releases/latest"
+
+        // GitHub 下载镜像列表，依次尝试
+        private val MIRRORS = listOf(
+            "https://ghps.cc/",
+            "https://gh.idayer.com/",
+            "https://gh.con.sh/",
+            "https://ghproxy.cn/",
+            "" // 兜底：直连 GitHub
+        )
     }
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(15, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
         .build()
 
     private val gson = Gson()
@@ -40,9 +49,7 @@ class UpdateRepository(private val context: Context) {
         _updateState.value = UpdateState.Checking
         try {
             val release = fetchLatestRelease()
-            val apkAsset = release.assets.firstOrNull {
-                it.name.endsWith(".apk") && it.contentType == "application/vnd.android.package-archive"
-            } ?: release.assets.firstOrNull { it.name.endsWith(".apk") }
+            val apkAsset = release.assets.firstOrNull { it.name.endsWith(".apk") }
 
             if (apkAsset == null) {
                 _updateState.value = UpdateState.Idle
@@ -64,7 +71,6 @@ class UpdateRepository(private val context: Context) {
                 _updateState.value = UpdateState.Idle
             }
         } catch (e: NoSuchElementException) {
-            // 没有 Release，不需要更新
             _updateState.value = UpdateState.Idle
         } catch (e: Exception) {
             _updateState.value = UpdateState.Error(e.message ?: "检查更新失败")
@@ -74,7 +80,7 @@ class UpdateRepository(private val context: Context) {
     suspend fun downloadAndInstall(updateInfo: UpdateInfo) {
         _updateState.value = UpdateState.Downloading(0f)
         try {
-            val apkFile = downloadApk(updateInfo)
+            val apkFile = downloadApkWithMirrors(updateInfo)
             _updateState.value = UpdateState.ReadyToInstall
             installApk(apkFile)
             _updateState.value = UpdateState.Idle
@@ -95,7 +101,6 @@ class UpdateRepository(private val context: Context) {
 
         val response = client.newCall(request).execute()
         if (response.code == 404) {
-            // 没有 Release，静默忽略
             throw NoSuchElementException()
         }
         if (!response.isSuccessful) {
@@ -108,15 +113,29 @@ class UpdateRepository(private val context: Context) {
         gson.fromJson(body, GitHubRelease::class.java)
     }
 
-    private suspend fun downloadApk(updateInfo: UpdateInfo): File = withContext(Dispatchers.IO) {
+    private suspend fun downloadApkWithMirrors(updateInfo: UpdateInfo): File = withContext(Dispatchers.IO) {
+        val baseUrl = updateInfo.downloadUrl
+        val urls = MIRRORS.map { mirror -> "${mirror}${baseUrl}" }
+
+        var lastError: Exception? = null
+        for (url in urls) {
+            try {
+                return@withContext downloadApk(url)
+            } catch (e: Exception) {
+                lastError = e
+                continue
+            }
+        }
+        throw lastError ?: Exception("下载失败")
+    }
+
+    private suspend fun downloadApk(url: String): File = withContext(Dispatchers.IO) {
         val updatesDir = File(context.cacheDir, "updates")
         if (!updatesDir.exists()) updatesDir.mkdirs()
-
-        // 清理旧 APK
         updatesDir.listFiles()?.forEach { it.delete() }
 
-        val apkFile = File(updatesDir, "update-${updateInfo.versionName}.apk")
-        val request = Request.Builder().url(updateInfo.downloadUrl).build()
+        val apkFile = File(updatesDir, "update.apk")
+        val request = Request.Builder().url(url).build()
 
         val response = client.newCall(request).execute()
         if (!response.isSuccessful) throw Exception("下载失败: ${response.code}")
@@ -160,7 +179,6 @@ class UpdateRepository(private val context: Context) {
     }
 
     private fun parseVersionCode(tagName: String): Int {
-        // 支持 "Darling.00.01" 或 "v1993.05.01" 格式
         val digits = tagName.filter { it.isDigit() }
         return digits.toIntOrNull() ?: 0
     }
