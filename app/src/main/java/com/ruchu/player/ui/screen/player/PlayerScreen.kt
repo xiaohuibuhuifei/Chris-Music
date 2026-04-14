@@ -19,7 +19,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -82,7 +81,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ruchu.player.data.model.LyricLine
 import com.ruchu.player.data.model.Song
+import com.ruchu.player.ui.components.AppTopBar
 import com.ruchu.player.ui.components.AssetImage
+import com.ruchu.player.ui.components.PillToggleButton
 import com.ruchu.player.ui.theme.RuChuTheme
 import com.ruchu.player.ui.util.glowClick
 import com.ruchu.player.ui.util.glowClickSubtle
@@ -102,6 +103,7 @@ fun PlayerScreen(
     val shuffleMode by playbackManager.shuffleMode.collectAsState()
     val repeatMode by playbackManager.repeatMode.collectAsState()
     val lyrics by viewModel.lyrics.collectAsState()
+    val tokens = RuChuTheme.tokens
 
     var showLyrics by remember { mutableStateOf(false) }
     var seekingValue by remember { mutableStateOf<Float?>(null) }
@@ -124,7 +126,7 @@ fun PlayerScreen(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
-                    .graphicsLayer { alpha = 0.06f },
+                    .graphicsLayer { alpha = tokens.opacity.faint },
                 contentScale = ContentScale.Crop
             )
         }
@@ -133,54 +135,15 @@ fun PlayerScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = tokens.spacing.xl),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Top bar - back button + centered title
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp, bottom = 8.dp)
-                    .pointerInput(onNavigateBack) {
-                        detectVerticalDragGestures { _, dragAmount ->
-                            if (dragAmount > 12f) {
-                                onNavigateBack()
-                            }
-                        }
-                    },
-                contentAlignment = Alignment.Center
-            ) {
-                IconButton(
-                    onClick = onNavigateBack,
-                    modifier = Modifier.align(Alignment.CenterStart)
-                ) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "返回",
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                }
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = currentSong?.title ?: "未在播放",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth(0.65f)
-                    )
-                    Text(
-                        text = currentSong?.albumTitle ?: "",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth(0.65f)
-                    )
-                }
-            }
+            AppTopBar(
+                title = currentSong?.title ?: "未在播放",
+                subtitle = currentSong?.albumTitle ?: "等待播放",
+                horizontalPadding = 0.dp,
+                onBack = onNavigateBack
+            )
 
             // Album art area (fixed weight, never shifts)
             Box(
@@ -204,7 +167,7 @@ fun PlayerScreen(
                         onSeek = { playbackManager.seekTo(it) },
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(MaterialTheme.colorScheme.background.copy(alpha = 0.92f))
+                            .background(MaterialTheme.colorScheme.background.copy(alpha = tokens.opacity.overlay))
                     )
                 }
 
@@ -222,7 +185,7 @@ fun PlayerScreen(
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
                             .fillMaxWidth()
-                            .padding(bottom = 8.dp)
+                            .padding(bottom = tokens.spacing.xs)
                     ) { text ->
                         Text(
                             text = text,
@@ -239,7 +202,7 @@ fun PlayerScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(tokens.spacing.lg))
 
             // Progress bar
             val sliderProgress = if (duration > 0) position.toFloat() / duration else 0f
@@ -346,7 +309,7 @@ fun PlayerScreen(
                 // Shuffle
                 Box(
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(tokens.touch.compact)
                         .glowClickSubtle(
                             onClick = { playbackManager.toggleShuffle() },
                             glowColor = if (shuffleMode) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
@@ -357,14 +320,14 @@ fun PlayerScreen(
                         Icons.Default.Shuffle,
                         contentDescription = "随机",
                         tint = if (shuffleMode) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(22.dp)
+                        modifier = Modifier.size(tokens.icon.md)
                     )
                 }
 
                 // Previous
                 Box(
                     modifier = Modifier
-                        .size(48.dp)
+                        .size(tokens.touch.large)
                         .glowClickSubtle(
                             onClick = { playbackManager.previous() },
                             glowColor = MaterialTheme.colorScheme.onBackground
@@ -374,7 +337,7 @@ fun PlayerScreen(
                     Icon(
                         Icons.Default.SkipPrevious,
                         contentDescription = "上一首",
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier.size(tokens.icon.xl),
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
@@ -382,7 +345,7 @@ fun PlayerScreen(
                 // Play/Pause - large center button with strong glow
                 Box(
                     modifier = Modifier
-                        .size(83.dp)
+                        .size(tokens.touch.primary + tokens.spacing.sm)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.primary)
                         .border(2.dp, MaterialTheme.colorScheme.onBackground.copy(alpha = 0.9f), CircleShape)
@@ -404,7 +367,7 @@ fun PlayerScreen(
                 // Next
                 Box(
                     modifier = Modifier
-                        .size(48.dp)
+                        .size(tokens.touch.large)
                         .glowClickSubtle(
                             onClick = { playbackManager.next() },
                             glowColor = MaterialTheme.colorScheme.onBackground
@@ -414,7 +377,7 @@ fun PlayerScreen(
                     Icon(
                         Icons.Default.SkipNext,
                         contentDescription = "下一首",
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier.size(tokens.icon.xl),
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
@@ -422,7 +385,7 @@ fun PlayerScreen(
                 // Repeat
                 Box(
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(tokens.touch.compact)
                         .glowClickSubtle(
                             onClick = { playbackManager.cycleRepeatMode() },
                             glowColor = if (repeatMode > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
@@ -437,50 +400,34 @@ fun PlayerScreen(
                         },
                         contentDescription = "循环",
                         tint = if (repeatMode > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(22.dp)
+                        modifier = Modifier.size(tokens.icon.md)
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(tokens.spacing.lg))
 
             // Secondary buttons row
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp),
+                    .padding(bottom = tokens.spacing.xl),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(20.dp))
-                        .background(
-                            if (showLyrics) MaterialTheme.colorScheme.primary.copy(alpha = 0.2f) else RuChuTheme.extended.lyricsOverlay
-                        )
-                        .glowClickSubtle(
-                            onClick = { showLyrics = !showLyrics },
-                            glowColor = if (showLyrics) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                            shape = RoundedCornerShape(20.dp)
-                        )
-                        .padding(horizontal = 20.dp, vertical = 8.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                PillToggleButton(
+                    text = "歌词",
+                    selected = showLyrics,
+                    onClick = { showLyrics = !showLyrics },
+                    leadingIcon = {
                         Icon(
                             Icons.Default.Lyrics,
                             contentDescription = null,
                             tint = if (showLyrics) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = "歌词",
-                            color = if (showLyrics) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.labelMedium
+                            modifier = Modifier.size(tokens.icon.sm)
                         )
                     }
-                }
+                )
             }
         }
     }

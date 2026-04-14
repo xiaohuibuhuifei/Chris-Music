@@ -45,6 +45,7 @@ private val LightExtended = ExtendedColors(
 )
 
 val LocalExtendedColors = staticCompositionLocalOf { DarkExtended }
+val LocalUiTokens = staticCompositionLocalOf { UiTokens() }
 
 // ===== Material color schemes =====
 private val DarkColorScheme = darkColorScheme(
@@ -80,8 +81,12 @@ fun RuChuTheme(
     val darkTheme = isSystemInDarkTheme()
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
     val extended = if (darkTheme) DarkExtended else LightExtended
+    val uiTokens = UiTokens()
 
-    CompositionLocalProvider(LocalExtendedColors provides extended) {
+    CompositionLocalProvider(
+        LocalExtendedColors provides extended,
+        LocalUiTokens provides uiTokens
+    ) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = Typography,
@@ -95,4 +100,9 @@ object RuChuTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalExtendedColors.current
+
+    val tokens: UiTokens
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalUiTokens.current
 }

@@ -12,8 +12,8 @@ android {
         applicationId = "com.ruchu.player"
         minSdk = 26
         targetSdk = 35
-        versionCode = 19930426
-        versionName = "1993.04.26"
+        versionCode = 1
+        versionName = "Darling2026041401"
     }
 
     signingConfigs {
@@ -84,6 +84,9 @@ dependencies {
 
     // Gson
     implementation("com.google.code.gson:gson:2.11.0")
+
+    // OkHttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")

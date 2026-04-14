@@ -129,6 +129,7 @@ fun MiniPlayer(
     modifier: Modifier = Modifier
 ) {
     if (song == null) return
+    val tokens = RuChuTheme.tokens
 
     Box(
         modifier = modifier
@@ -141,7 +142,7 @@ fun MiniPlayer(
             contentDescription = null,
             modifier = Modifier
                 .matchParentSize()
-                .graphicsLayer { alpha = 0.08f },
+                .graphicsLayer { alpha = tokens.opacity.subtle },
             contentScale = ContentScale.Crop
         )
         LinearProgressIndicator(
@@ -151,25 +152,25 @@ fun MiniPlayer(
                 .height(2.dp)
                 .align(Alignment.TopCenter),
             color = MaterialTheme.colorScheme.primary,
-            trackColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
+            trackColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = tokens.opacity.medium)
         )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 10.dp),
+                .padding(horizontal = tokens.spacing.sm, vertical = tokens.spacing.xs + 2.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AssetImage(
                 assetPath = song.albumArtwork,
                 contentDescription = song.title,
                 modifier = Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(4.dp)),
+                    .size(tokens.touch.large)
+                    .clip(RoundedCornerShape(tokens.radius.sm)),
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(tokens.spacing.xs + 2.dp))
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
@@ -187,27 +188,27 @@ fun MiniPlayer(
                 )
             }
 
-            IconButton(onClick = onPrevious, modifier = Modifier.size(44.dp)) {
+            IconButton(onClick = onPrevious, modifier = Modifier.size(tokens.touch.regular)) {
                 Icon(
                     Icons.Default.SkipPrevious,
                     contentDescription = "上一曲",
-                    modifier = Modifier.size(26.dp),
+                    modifier = Modifier.size(tokens.icon.lg),
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
-            IconButton(onClick = onTogglePlay, modifier = Modifier.size(44.dp)) {
+            IconButton(onClick = onTogglePlay, modifier = Modifier.size(tokens.touch.regular)) {
                 Icon(
                     if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
                     contentDescription = if (isPlaying) "暂停" else "播放",
-                    modifier = Modifier.size(26.dp),
+                    modifier = Modifier.size(tokens.icon.lg),
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
-            IconButton(onClick = onNext, modifier = Modifier.size(44.dp)) {
+            IconButton(onClick = onNext, modifier = Modifier.size(tokens.touch.regular)) {
                 Icon(
                     Icons.Default.SkipNext,
                     contentDescription = "下一曲",
-                    modifier = Modifier.size(26.dp),
+                    modifier = Modifier.size(tokens.icon.lg),
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
@@ -221,9 +222,10 @@ fun GlowingActionLabel(
     icon: ImageVector,
     contentColor: Color,
     glowColor: Color = contentColor,
-    textSize: TextUnit = 13.sp,
+    textSize: TextUnit = 14.sp,
     modifier: Modifier = Modifier
 ) {
+    val tokens = RuChuTheme.tokens
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.Center,
@@ -233,10 +235,10 @@ fun GlowingActionLabel(
             imageVector = icon,
             contentDescription = null,
             tint = contentColor,
-            modifier = Modifier.size(16.dp)
+            modifier = Modifier.size(tokens.icon.sm)
         )
 
-        Spacer(modifier = Modifier.width(6.dp))
+        Spacer(modifier = Modifier.width(tokens.spacing.xs - 2.dp))
 
         Text(
             text = text,
@@ -248,7 +250,7 @@ fun GlowingActionLabel(
                 TextStyle(
                     fontSize = textSize,
                     shadow = Shadow(
-                        color = glowColor.copy(alpha = 0.28f),
+                        color = glowColor.copy(alpha = tokens.opacity.medium + 0.08f),
                         blurRadius = 8f,
                         offset = androidx.compose.ui.geometry.Offset.Zero
                     )
@@ -265,10 +267,11 @@ fun QuoteCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val tokens = RuChuTheme.tokens
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(tokens.radius.lg))
             .background(
                 brush = androidx.compose.ui.graphics.Brush.linearGradient(
                     colors = listOf(
@@ -278,7 +281,7 @@ fun QuoteCard(
                 )
             )
             .clickable(onClick = onClick)
-            .padding(20.dp)
+            .padding(tokens.spacing.lg)
     ) {
         Column {
             Text(
@@ -289,7 +292,7 @@ fun QuoteCard(
                 color = MaterialTheme.colorScheme.onBackground,
                 minLines = 2
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(tokens.spacing.xs))
             Text(
                 text = "\u2014\u2014 $quoteSource",
                 style = MaterialTheme.typography.bodySmall.copy(
@@ -308,6 +311,7 @@ fun AlbumCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val tokens = RuChuTheme.tokens
     Column(
         modifier = modifier.clickable(onClick = onClick)
     ) {
@@ -317,10 +321,10 @@ fun AlbumCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
-                .clip(RoundedCornerShape(8.dp)),
+                .clip(RoundedCornerShape(tokens.radius.sm)),
             contentScale = ContentScale.Crop
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(tokens.spacing.xxs))
         Text(
             text = album.title,
             style = MaterialTheme.typography.bodyMedium,

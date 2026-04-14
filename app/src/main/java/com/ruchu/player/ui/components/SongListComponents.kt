@@ -17,11 +17,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Shuffle
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,10 +32,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ruchu.player.ui.model.SongListRowModel
-
-private val FooterSpacing = 72.dp
+import com.ruchu.player.ui.theme.RuChuTheme
 
 @Composable
 fun SongListPane(
@@ -52,6 +47,7 @@ fun SongListPane(
 ) {
     val listState = rememberLazyListState()
     var hasScrolledToTop by remember { mutableStateOf(false) }
+    val tokens = RuChuTheme.tokens
 
     // 仅在首次数据到达时滚动到顶部，避免与用户滚动冲突
     LaunchedEffect(rows.isNotEmpty()) {
@@ -99,7 +95,7 @@ fun SongListPane(
             key = "song_list_footer",
             contentType = "song_list_footer"
         ) {
-            Spacer(modifier = Modifier.height(FooterSpacing))
+            Spacer(modifier = Modifier.height(if (isMiniPlayerVisible) 72.dp else tokens.spacing.md))
         }
     }
 }
@@ -110,37 +106,31 @@ fun SongListActionRow(
     onShuffleAll: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val tokens = RuChuTheme.tokens
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(tokens.spacing.xs)
     ) {
-        Button(
+        PrimaryActionButton(
             onClick = onPlayAll,
-            modifier = Modifier.weight(1f),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
-            )
+            modifier = Modifier.weight(1f)
         ) {
             GlowingActionLabel(
                 text = "播放全部",
                 icon = Icons.Default.PlayArrow,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
-                glowColor = MaterialTheme.colorScheme.onPrimary,
-                textSize = 13.sp
+                glowColor = MaterialTheme.colorScheme.onPrimary
             )
         }
-        OutlinedButton(
+        SecondaryActionButton(
             onClick = onShuffleAll,
-            modifier = Modifier.weight(1f),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.primary)
+            modifier = Modifier.weight(1f)
         ) {
             GlowingActionLabel(
                 text = "随机播放",
                 icon = Icons.Default.Shuffle,
                 contentColor = MaterialTheme.colorScheme.primary,
-                glowColor = MaterialTheme.colorScheme.primary,
-                textSize = 13.sp
+                glowColor = MaterialTheme.colorScheme.primary
             )
         }
     }
@@ -153,6 +143,7 @@ private fun SongListRowItem(
     onClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val tokens = RuChuTheme.tokens
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -161,7 +152,7 @@ private fun SongListRowItem(
                 indication = null,
                 interactionSource = null
             ) { onClick(row.id) }
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = tokens.spacing.md, vertical = tokens.spacing.sm),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -179,8 +170,8 @@ private fun SongListRowItem(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.End,
             modifier = Modifier
-                .width(48.dp)
-                .padding(start = 12.dp)
+                .width(tokens.touch.large)
+                .padding(start = tokens.spacing.sm)
         )
     }
 }

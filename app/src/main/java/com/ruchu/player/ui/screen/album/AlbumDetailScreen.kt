@@ -8,14 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,16 +17,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.ruchu.player.data.model.Song
+import com.ruchu.player.ui.components.AppTopBar
 import com.ruchu.player.ui.components.AssetImage
 import com.ruchu.player.ui.components.MiniPlayer
 import com.ruchu.player.ui.components.SongListActionRow
 import com.ruchu.player.ui.components.SongListPane
+import com.ruchu.player.ui.theme.RuChuTheme
 import com.ruchu.player.util.PlaybackManager
 
 @Composable
@@ -65,6 +57,7 @@ fun AlbumDetailScreen(
     }
 
     val album = uiState.album
+    val tokens = RuChuTheme.tokens
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background
@@ -78,53 +71,20 @@ fun AlbumDetailScreen(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                // Top bar - same style as PlayerScreen
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 24.dp, end = 24.dp, top = 8.dp, bottom = 8.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    IconButton(
-                        onClick = onNavigateBack,
-                        modifier = Modifier.align(Alignment.CenterStart)
-                    ) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "返回",
-                            tint = MaterialTheme.colorScheme.onBackground
-                        )
-                    }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = album?.title ?: "",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onBackground,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth(0.65f)
-                        )
-                        if (album != null) {
-                            Text(
-                                text = if (album.year != null) "${album.year} · ${album.songs.size} 首" else "${album.songs.size} 首",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier.fillMaxWidth(0.65f)
-                            )
-                        }
-                    }
-                }
+                AppTopBar(
+                    title = album?.title ?: "专辑歌曲",
+                    subtitle = album?.let {
+                        if (it.year != null) "${it.year} · ${it.songs.size} 首" else "${it.songs.size} 首"
+                    } ?: "加载中...",
+                    onBack = onNavigateBack
+                )
 
                 if (album != null) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                            .clip(RoundedCornerShape(16.dp)),
+                            .padding(horizontal = tokens.spacing.md)
+                            .clip(androidx.compose.foundation.shape.RoundedCornerShape(tokens.radius.lg)),
                         contentAlignment = Alignment.Center
                     ) {
                         AssetImage(
@@ -137,7 +97,7 @@ fun AlbumDetailScreen(
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(tokens.spacing.md))
 
                     SongListActionRow(
                         onPlayAll = {
@@ -150,10 +110,10 @@ fun AlbumDetailScreen(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
+                            .padding(horizontal = tokens.spacing.md)
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(tokens.spacing.md))
                 }
 
                 SongListPane(

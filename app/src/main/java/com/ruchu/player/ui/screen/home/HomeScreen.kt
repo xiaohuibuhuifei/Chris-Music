@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
@@ -18,15 +17,11 @@ import androidx.compose.material.icons.filled.LibraryMusic
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,15 +30,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ruchu.player.ui.components.AlbumCard
+import com.ruchu.player.ui.components.AppTopBar
 import com.ruchu.player.ui.components.GlowingActionLabel
 import com.ruchu.player.ui.components.MiniPlayer
+import com.ruchu.player.ui.components.PrimaryActionButton
 import com.ruchu.player.ui.components.QuoteCard
+import com.ruchu.player.ui.components.SecondaryActionButton
+import com.ruchu.player.ui.components.UpdateDialog
 import com.ruchu.player.ui.theme.CreativeFont
+import com.ruchu.player.ui.theme.RuChuTheme
 import com.ruchu.player.util.PlaybackManager
 
 @Composable
@@ -58,6 +56,9 @@ fun HomeScreen(
     val currentSong by playbackManager.currentSong.collectAsState()
     val sleepTimerRemaining by playbackManager.sleepTimerRemaining.collectAsState()
     var showSleepTimerDialog by remember { mutableStateOf(false) }
+    val tokens = RuChuTheme.tokens
+    val albumRows = remember(uiState.albums) { uiState.albums.chunked(2) }
+    val updateState by viewModel.updateState.collectAsState()
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background
@@ -65,44 +66,33 @@ fun HomeScreen(
         Box(modifier = Modifier.fillMaxSize().padding(padding)) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(bottom = if (currentSong != null) 72.dp else 16.dp)
+                contentPadding = PaddingValues(bottom = if (currentSong != null) 72.dp else tokens.spacing.md)
             ) {
-                // Title: 如初 with glow + sleep timer button
                 item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp, bottom = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Spacer(modifier = Modifier.size(56.dp))
-                        Text(
-                            text = "如·初",
-                            style = MaterialTheme.typography.displayLarge.copy(
-                                fontFamily = CreativeFont,
-                                shadow = androidx.compose.ui.graphics.Shadow(
-                                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.42f),
-                                    blurRadius = 16f,
-                                    offset = androidx.compose.ui.geometry.Offset.Zero
-                                )
-                            ),
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.padding(horizontal = 28.dp, vertical = 8.dp),
-                            textAlign = TextAlign.Center
-                        )
-                        IconButton(
-                            onClick = { showSleepTimerDialog = true },
-                            modifier = Modifier.padding(end = 8.dp)
-                        ) {
-                            Icon(
-                                Icons.Default.AccessTime,
-                                contentDescription = "定时关闭",
-                                tint = if (sleepTimerRemaining != 0L) MaterialTheme.colorScheme.primary
-                                       else MaterialTheme.colorScheme.onSurfaceVariant
+                    AppTopBar(
+                        title = "如·初",
+                        subtitle = "",
+                        showSubtitle = false,
+                        titleStyle = MaterialTheme.typography.displayLarge.copy(
+                            fontFamily = CreativeFont,
+                            shadow = androidx.compose.ui.graphics.Shadow(
+                                color = MaterialTheme.colorScheme.primary.copy(alpha = tokens.opacity.strong),
+                                blurRadius = 16f,
+                                offset = androidx.compose.ui.geometry.Offset.Zero
                             )
+                        ),
+                        titleColor = MaterialTheme.colorScheme.primary,
+                        actions = {
+                            IconButton(onClick = { showSleepTimerDialog = true }) {
+                                Icon(
+                                    Icons.Default.AccessTime,
+                                    contentDescription = "定时关闭",
+                                    tint = if (sleepTimerRemaining != 0L) MaterialTheme.colorScheme.primary
+                                    else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
                         }
-                    }
+                    )
                 }
 
                 // Quote card
@@ -112,94 +102,77 @@ fun HomeScreen(
                             quoteText = uiState.quote!!.lyric,
                             quoteSource = "${uiState.quote!!.songTitle} · ${uiState.quote!!.year}",
                             onClick = { viewModel.refreshQuote() },
-                            modifier = Modifier.padding(horizontal = 16.dp)
+                            modifier = Modifier.padding(horizontal = tokens.spacing.md)
                         )
                     }
                 }
 
                 // Action buttons
                 item {
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(tokens.spacing.lg))
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            .padding(horizontal = tokens.spacing.md),
+                        horizontalArrangement = Arrangement.spacedBy(tokens.spacing.xs)
                     ) {
-                        OutlinedButton(
+                        SecondaryActionButton(
                             onClick = onNavigateToLibrary,
-                            modifier = Modifier.weight(1f),
-                            contentPadding = PaddingValues(horizontal = 6.dp, vertical = 8.dp),
-                            colors = ButtonDefaults.outlinedButtonColors(
-                                contentColor = MaterialTheme.colorScheme.primary
-                            )
+                            modifier = Modifier.weight(1f)
                         ) {
                             GlowingActionLabel(
                                 text = "全部歌曲",
                                 icon = Icons.Default.LibraryMusic,
                                 contentColor = MaterialTheme.colorScheme.primary,
-                                glowColor = MaterialTheme.colorScheme.primary,
-                                textSize = 12.sp
+                                glowColor = MaterialTheme.colorScheme.primary
                             )
                         }
-                        Button(
+                        PrimaryActionButton(
                             onClick = {
                                 viewModel.playAll()
                                 onNavigateToPlayer()
                             },
-                            modifier = Modifier.weight(1f),
-                            contentPadding = PaddingValues(horizontal = 6.dp, vertical = 8.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary
-                            )
+                            modifier = Modifier.weight(1f)
                         ) {
                             GlowingActionLabel(
                                 text = "播放全部",
                                 icon = Icons.Default.PlayArrow,
                                 contentColor = MaterialTheme.colorScheme.onPrimary,
-                                glowColor = MaterialTheme.colorScheme.onPrimary,
-                                textSize = 12.sp
+                                glowColor = MaterialTheme.colorScheme.onPrimary
                             )
                         }
-                        OutlinedButton(
+                        SecondaryActionButton(
                             onClick = {
                                 viewModel.shuffleAll()
                                 onNavigateToPlayer()
                             },
-                            modifier = Modifier.weight(1f),
-                            contentPadding = PaddingValues(horizontal = 6.dp, vertical = 8.dp),
-                            colors = ButtonDefaults.outlinedButtonColors(
-                                contentColor = MaterialTheme.colorScheme.primary
-                            )
+                            modifier = Modifier.weight(1f)
                         ) {
                             GlowingActionLabel(
                                 text = "随机播放",
                                 icon = Icons.Default.Shuffle,
                                 contentColor = MaterialTheme.colorScheme.primary,
-                                glowColor = MaterialTheme.colorScheme.primary,
-                                textSize = 12.sp
+                                glowColor = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(tokens.spacing.lg))
                 }
 
                 // Album grid (2 columns)
-                val albums = uiState.albums
                 items(
-                    count = albums.chunked(2).size,
+                    count = albumRows.size,
                     key = { rowIndex ->
-                        albums.chunked(2)[rowIndex].joinToString(",") { it.id }
+                        albumRows[rowIndex].joinToString(",") { it.id }
                     },
                     contentType = { "album_row" }
                 ) { rowIndex ->
-                    val rowAlbums = albums.chunked(2)[rowIndex]
+                    val rowAlbums = albumRows[rowIndex]
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 6.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            .padding(horizontal = tokens.spacing.md, vertical = tokens.spacing.xs - 2.dp),
+                        horizontalArrangement = Arrangement.spacedBy(tokens.spacing.sm)
                     ) {
                         rowAlbums.forEach { album ->
                             AlbumCard(
@@ -241,6 +214,12 @@ fun HomeScreen(
             onDismiss = { showSleepTimerDialog = false }
         )
     }
+
+    UpdateDialog(
+        state = updateState,
+        onConfirm = { info -> viewModel.startUpdate(info) },
+        onDismiss = { viewModel.dismissUpdate() }
+    )
 }
 
 @Composable
@@ -306,18 +285,15 @@ private fun SleepTimerDialog(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    OutlinedButton(
+                    SecondaryActionButton(
                         onClick = onDismiss,
                         modifier = Modifier.weight(1f)
                     ) {
                         Text("关闭")
                     }
-                    Button(
+                    PrimaryActionButton(
                         onClick = onCancel,
-                        modifier = Modifier.weight(1f),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
-                        )
+                        modifier = Modifier.weight(1f)
                     ) {
                         Text("取消定时")
                     }
@@ -332,12 +308,9 @@ private fun SleepTimerDialog(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         listOf(15 to "15′", 30 to "30′", 45 to "45′").forEach { (min, label) ->
-                            OutlinedButton(
+                            SecondaryActionButton(
                                 onClick = { onSelectDuration(min * 60_000L) },
-                                modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.outlinedButtonColors(
-                                    contentColor = MaterialTheme.colorScheme.primary
-                                )
+                                modifier = Modifier.weight(1f)
                             ) {
                                 Text(
                                     label,
@@ -352,12 +325,9 @@ private fun SleepTimerDialog(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         listOf(60 to "60′", 90 to "90′", 120 to "120′").forEach { (min, label) ->
-                            OutlinedButton(
+                            SecondaryActionButton(
                                 onClick = { onSelectDuration(min * 60_000L) },
-                                modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.outlinedButtonColors(
-                                    contentColor = MaterialTheme.colorScheme.primary
-                                )
+                                modifier = Modifier.weight(1f)
                             ) {
                                 Text(
                                     label,

@@ -240,6 +240,11 @@ class PlaybackManager private constructor() {
         applyRepeatMode()
     }
 
+    fun setRepeatMode(mode: Int) {
+        _repeatMode.value = mode.coerceIn(0, 2)
+        applyRepeatMode()
+    }
+
     fun releaseController() {
         persistSnapshot()
         lastKnownPosition = _currentPosition.value
